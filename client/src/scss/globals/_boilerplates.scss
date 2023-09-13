@@ -1,0 +1,29 @@
+@use '../utils' as u;
+
+html {
+	box-sizing: border-box;
+	font-size: 100%;
+}
+*,
+*::after,
+*::before {
+	// padding: 0;
+	// margin: 0;
+	box-sizing: border-box;
+}
+body {
+	margin: 0;
+	padding: 0;
+	font-family: u.$font;
+	background-color: rgb(69, 71, 69);
+	color: white;
+}
+
+/* #root {
+ 	overflow: hidden;
+ }
+
+ :root{
+
+ }
+*/

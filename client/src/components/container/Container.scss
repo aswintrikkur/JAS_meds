@@ -1,0 +1,9 @@
+@import '../../index.scss';
+
+.container{
+    max-width: 400px;
+    // min-height: 812px;
+    height: min(100vh,812px);  //* this helps to avoid scroll bar, but
+    // background-color: rgb(39, 35, 35);
+    background-color: $bg-color-primary;
+}
