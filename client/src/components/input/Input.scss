@@ -1,0 +1,11 @@
+@import '../../index.scss';
+
+.input-container{
+
+    input{
+        width: 230px;
+        height: 35px;
+        background-color: $bg-color-secondary;
+        border: 1px solid black;
+    }
+}

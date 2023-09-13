@@ -2,22 +2,17 @@
 
 .home-container {
 	height: 100%;
+	// background-color: beige;
 	text-align: center;
-	>h1 {
-		background-color: $bg-color-secondary;
-		padding: 15px 0px;
-	}
-	.btn-container{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		
-		button{
-			background-color: $bg-color-ternary;
-			width: 180px;
-			height: 55px;
-			border-radius: 10px;
-			border: 1px solid black;
+	// h1 {
+	// 	 background-color: $bg-color-secondary;
+	// 	padding: 15px 0px;
+	// }
+	.btn-container {
+		margin-top: 150px;
+		button {
+			margin: 30px;
+			// padding: 30px;
 		}
 	}
 }

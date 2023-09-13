@@ -1,18 +1,29 @@
-h1,h2,h3{
-    font-weight: 700; 
-    margin-top: 0;
-    padding-top: 0;
+h1,
+h2,
+h3 {
+	font-weight: 700;
+	margin-top: 0;
+	padding-top: 0;
+}
+$font-size: (
+	"h1": 36,
+	"h2": 30,
+	"h3": 26,
+	"h4": 22,
+	"h5": 18,
+	"h6": 14,
+);
+h1 {
+	font-size: map-get($font-size , h1 );
+}
+p {
+	padding-top: 0;
+	margin-top: 0;
+	margin-bottom: 0;
+}
 
-}
-h1{
-    font-size: 36px;
-}
-p{
-    padding-top: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-a,a:visited,a:active{
-    text-decoration: none;
+a,
+a:visited,
+a:active {
+	text-decoration: none;
 }

@@ -1,0 +1,29 @@
+.new-data-container{
+    text-align: center;
+
+    .custumer-details{
+        $height:35px;
+        display: flex;
+        justify-content: center;
+        height: $height;
+        
+
+        >input{
+            
+        }
+        button{
+            width: 75px;
+            height: $height;
+        }
+    }
+
+    .medicine-details{
+
+        margin-top: 30px;
+        background: violet;
+        .add-medicine{
+        }
+
+    }
+    
+}
