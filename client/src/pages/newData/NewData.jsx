@@ -4,6 +4,7 @@ import { Container } from "../../components/Container/Container";
 import { Header } from "../../components/header/Header";
 import { Button } from "../../components/button/Button";
 import { Input } from "../../components/input/Input";
+import { AddMedicine } from "../../components/addMedicine/AddMedicine";
 
 export const NewData = () => {
 	return (
@@ -21,7 +22,7 @@ export const NewData = () => {
 					<div className="col2">
 						<Input placeholder="Date" type="date" name="date" />
 						<select name="doctorName" className="doctor-name">
-							<option value="">select</option>
+							<option value="">Doctor Name</option>
 							<option value="Don Davis">Don Davis</option>
 							<option value="Doctor2">Doctor2</option>
 							<option value="Doctor3">Doctor3</option>
@@ -32,6 +33,7 @@ export const NewData = () => {
 				</div>
 				<div className="medicine-details">
 					<Button text="ADD Medicine"  />
+					<AddMedicine/>
 				</div>
 			</div>
 		</Container>

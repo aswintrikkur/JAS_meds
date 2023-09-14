@@ -2,6 +2,10 @@
 
 .new-data-container{
     text-align: center;
+    height: 100%;
+    // background-color: gray;
+    position: relative;
+
 
     .customer-details{
         $height:35px;
@@ -33,11 +37,11 @@
     }
 
     .medicine-details{
-
         margin-top: 25px;
+        width: 100%;
         // background: violet;
-        .add-medicine{
-        }
+        // display: flex;
+        // justify-content: center;
 
     }
     
