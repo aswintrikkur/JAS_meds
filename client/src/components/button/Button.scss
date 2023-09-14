@@ -1,19 +1,17 @@
-@import '../../index.scss';
+@import "../../index.scss";
 
-.button-container{
-     
-    button{
-        width:220px;
-        height: 75px;
-        background-color: $bg-color-ternary;
-        color:$bg-color-secondary;
-        border-radius: 12px;
-        border: 1px solid black;
-        font-size: 24px;
-        font-weight: 700;
-    }
-    button:hover{
-        filter: brightness(130%);
-    }
-
+.button-container {
+	button {
+		width: 140px;
+		height: 35px;
+		background-color: $bg-color-ternary;
+		color: $bg-color-secondary;
+		border-radius: 12px;
+		border: 1px solid black;
+		font-size: 18px;
+		font-weight: 500;
+	}
+	button:hover {
+		filter: brightness(130%);
+	}
 }

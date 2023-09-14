@@ -1,11 +1,17 @@
 @import '../../index.scss';
 
 .input-container{
-
     input{
-        width: 230px;
+        width: 185px;
         height: 35px;
-        background-color: $bg-color-secondary;
+        padding: 0 10px;
+        background-color: $bg-color-primary;
+        filter: contrast(90%);
+        color: $text-color-secondary;
         border: 1px solid black;
     }
+    input:focus{
+        color:$text-color-primary;
+    }
+    
 }

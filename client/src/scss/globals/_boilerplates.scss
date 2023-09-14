@@ -1,5 +1,5 @@
-@use '../utils' as u;
-@use './colors' as c;
+@use "../utils" as u;
+@use "./colors" as c;
 
 html {
 	box-sizing: border-box;
@@ -28,3 +28,8 @@ body {
 
  }
 */
+input,
+input:active,
+select {
+	outline: none;
+}
