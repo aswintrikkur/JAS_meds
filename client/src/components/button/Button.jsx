@@ -1,11 +1,21 @@
 import React from 'react'
 import './Button.scss'
 
-export const Button = ({text,bgc,color}) => {
+export const BaseButton = ({text,bgc,color, onClick}) => {
   return (
-    <div className='button-container'>
-        <button  > {text} </button>
+    <div className='base-button-container'>
+        <button  onClick={onClick} style={{backgroundColor:bgc,color:color}} > {text} </button>
       
     </div>
   )
+}
+
+
+export const BackButton = ({onClick}) => {
+  return (
+    <div className='back-button-container'>
+      <button onClick={onClick} >x</button>
+      
+    </div>
+  );
 }

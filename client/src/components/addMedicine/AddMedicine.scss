@@ -1,13 +1,39 @@
+@import "../../index.scss";
 
-	.add-medicine-container {
-		width: 90%;
-		height: 75%;
-        // z-index: 1;
-		// filter: blur(1px);
-		background-color: rgb(43, 75, 77);
-		position: absolute;
-		top: 55%;
-		left: 50%;
-		translate: -50% -50%;
-		// margin: 50% auto;
+.bg-blur-container {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	// filter: blur(3px);
+	backdrop-filter: blur(10px);
+	z-index: 2;
+}
+.add-medicine-container {
+	text-align: start;
+	width: 90%;
+	min-height: 70%;
+	padding: 30px 20px;
+	position: absolute;
+	top: 150px;
+	left: 50%;
+	translate: -50% 0;
+	z-index: 3;
+	border-radius: 30px;
+	// box-shadow:  3px 3px 10px 2px linear-gradient(red, yellow);
+	// box-shadow:  3px 3px 10px 2px rgb(40, 40, 114);
+	box-shadow: rgba(122, 122, 122, 0.3) 0px 19px 38px, rgba(122, 122, 122, 0.22) 0px 15px 12px;
+	background-color: $bg-color-secondary;
+
+	> h2 {
+		margin-top: 20px;
+		// margin-bottom: 50px;
+		text-align: center;
+		font-size: 26px;
 	}
+	> form {
+		padding: 50px 30px;
+
+		
+	}
+}

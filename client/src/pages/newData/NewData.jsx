@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NewData.scss";
 import { Container } from "../../components/Container/Container";
 import { Header } from "../../components/header/Header";
-import { Button } from "../../components/button/Button";
+import { BackButton, BaseButton } from "../../components/button/Button";
 import { Input } from "../../components/input/Input";
 import { AddMedicine } from "../../components/addMedicine/AddMedicine";
+import { MedicineList } from "../../components/medicineList/MedicineList";
 
 export const NewData = () => {
+	const [showAddMedicine,setShowAddMedicine]=useState(false);
+	const toggleAddMedicine=()=>{
+		setShowAddMedicine(prev=>!prev);
+		console.log('button');
+	}
+	console.log(showAddMedicine);
 	return (
 		<Container>
 			<div className="new-data-container">
@@ -32,8 +39,9 @@ export const NewData = () => {
 					</div>
 				</div>
 				<div className="medicine-details">
-					<Button text="ADD Medicine"  />
-					<AddMedicine/>
+					<BaseButton text="ADD Medicine" bgc='#2b3c4a' color='#9cb380' onClick={toggleAddMedicine} />
+					{showAddMedicine && <AddMedicine onClick={toggleAddMedicine} />}
+					<MedicineList  />
 				</div>
 			</div>
 		</Container>

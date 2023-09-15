@@ -1,6 +1,6 @@
 @import "../../index.scss";
 
-.button-container {
+.base-button-container {
 	button {
 		width: 140px;
 		height: 35px;
@@ -10,8 +10,28 @@
 		border: 1px solid black;
 		font-size: 18px;
 		font-weight: 500;
+		margin: 20px;
 	}
 	button:hover {
 		filter: brightness(130%);
+	}
+}
+
+.back-button-container{
+	display: flex;
+	justify-content: end;
+	align-items: center;
+	padding: 5px;
+	button{
+		width: 22px;
+		height: 22px;
+		font-size: 18px;
+		border-radius: 3px;
+		background-color: red;
+		color: white;
+		border: none;
+	}
+	button:focus{
+		scale: .9;
 	}
 }

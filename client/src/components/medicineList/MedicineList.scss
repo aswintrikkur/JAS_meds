@@ -1,0 +1,19 @@
+@import '../../index.scss';
+
+.medicine-list-container{
+    width: 90%;
+    height: 400px;
+    border-radius: 10px;
+    background-color: $bg-color-primary;
+    color: $text-color-secondary;
+    filter: contrast(90%);
+    // overflow: scroll;
+    position: relative;
+    padding:  10px 20px;
+
+    .submit-btn{
+        position: absolute;
+        bottom: 30px;
+        right: 10px;
+    }
+}
