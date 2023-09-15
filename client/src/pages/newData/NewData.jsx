@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./NewData.scss";
-import { Container } from "../../components/Container/Container";
+import { Container } from "../../components/container/Container";
 import { Header } from "../../components/header/Header";
 import { BackButton, BaseButton } from "../../components/button/Button";
 import { Input } from "../../components/input/Input";
