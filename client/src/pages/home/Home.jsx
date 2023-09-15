@@ -1,10 +1,10 @@
 import React from "react";
 import "./Home.scss";
 import "../../index.scss";
-import { Container } from "../../components/Container/Container";
 import { BaseButton } from "../../components/button/Button";
 import { Header } from "../../components/header/Header";
 import { useNavigate } from "react-router-dom";
+import { Container } from "../../components/container/Container";
 
 export const Home = () => {
 	const navigate = useNavigate();
