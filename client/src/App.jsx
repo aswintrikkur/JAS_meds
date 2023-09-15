@@ -1,14 +1,17 @@
-import { Home } from './Pages/Home/Home'
-import { NewData } from './pages/newData/NewData'
+import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/home/Home";
+import { NewData } from "./pages/newData/NewData";
 
 function App() {
-
-  return (
-    <div className='app-container' >
-      {/* <Home/> */}
-      <NewData/>
-    </div>
-  )
+	return (
+		<div className="app-container">
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/newData" element={<NewData />} />
+				<Route path="/history" />
+			</Routes>
+		</div>
+	);
 }
 
-export default App
+export default App;

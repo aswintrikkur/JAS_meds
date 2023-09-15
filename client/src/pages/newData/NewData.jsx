@@ -39,7 +39,7 @@ export const NewData = () => {
 					</div>
 				</div>
 				<div className="medicine-details">
-					<BaseButton text="ADD Medicine" bgc='#2b3c4a' color='#9cb380' onClick={toggleAddMedicine} />
+					<BaseButton text="ADD Medicine" bgc='#2b3c4a' color='#a39e9e' onClick={toggleAddMedicine} />
 					{showAddMedicine && <AddMedicine onClick={toggleAddMedicine} />}
 					<MedicineList  />
 				</div>
