@@ -11,7 +11,7 @@ export const Home = () => {
 	return (
 		<Container>
 			<div className="home-container">
-				<Header />
+				{/* <Header /> */}
 				<div className="btn-container">
 					<HomeButton text="New Data"  onClick={()=>{navigate('/newData')}}/>
 					<HomeButton text="History"  onClick={()=>{navigate('/history')}} />

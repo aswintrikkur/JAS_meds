@@ -3,9 +3,24 @@
 .container{
     max-width: 400px;
     // min-height: 812px;
-    height: min(100vh,812px);  //* this helps to avoid scroll bar, but
-    // background-color: rgb(39, 35, 35);
+    // height: min(100vh,812px);  //* this helps to avoid scroll bar, but
+    height: 100vh;
     background-color: $bg-color-primary;
-    // overflow-x: hidden;
+    overflow: hidden;
     z-index: 1;
+    position: relative;
+    
+}
+
+.card-container{
+    width: 90%;
+    border-radius: 10px;
+	background-color: $bg-color-primary;
+	color: $text-color-secondary;
+	filter: contrast(90%);
+	// overflow: scroll;
+	position: relative;
+	padding: 20px 20px;
+    // padding-bottom: 60px;
+
 }
