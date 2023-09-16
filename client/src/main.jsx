@@ -3,12 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.scss";
 import { BrowserRouter } from "react-router-dom";
-import { InputProvider } from "./contextAPI/InputContext.jsx";
+import { NewDataProvider } from "./contextAPI/NewDataContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<InputProvider>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
-	</InputProvider>
+	<NewDataProvider>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+	</NewDataProvider>
 );

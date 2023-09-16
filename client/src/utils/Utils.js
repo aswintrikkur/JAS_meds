@@ -1,14 +1,5 @@
-import { useState } from "react"
-
-// export const handleInputOnchange=(event,setTarget)=>{
-//     // const [target,setTarget]=useState();
-
-//     setTarget(prev=>({
-//         ...prev,
-//         [event.target.name]:event.target.value
-//     }))
-
-
-//     // return [target]
-// }
-
+//! global variable
+export const STATE_NAME = {
+	CUSTOMER_DETAILS: "CUSTOMER_DETAILS",
+	ADD_MEDICINE: "ADD_MEDICINE",
+};

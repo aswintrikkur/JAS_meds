@@ -1,24 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./AddMedicine.scss";
 import { Input } from "../../components/input/Input";
 import { BackButton, BaseButton } from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { Container } from "../../components/container/Container";
-import { useInputHandle } from "../../hooks/useInputHandle";
+import { NewDataContext, useInputHandle } from "../../contextAPI/NewDataContext";
+import { STATE_NAME } from "../../utils/Utils";
 
-export const AddMedicine = ({date}) => {
-	const [addMedicine, setAddMedicine] = useState({});
-	const [medDueDate,setMedDueDate]=useState(0);
+export const AddMedicine = ({ date }) => {
+	const [medDueDate, setMedDueDate] = useState(0);
 	const navigate = useNavigate();
 
-	const [handleChange]=useInputHandle(addMedicine);
+	//* Input handling using contextAPI and Custom Hooks
+	const [handleChange] = useInputHandle();
 
-	const findMedDueDate =()=>{
-		console.log('DueDate:', date);
+	const { addMedicine } = useContext(NewDataContext);
+	console.log("Add medicine", addMedicine);
 
-	}
+	const findMedDueDate = () => {
+		console.log("DueDate:", date);
+	};
 
-console.log('Add medicine:', addMedicine);
+	// console.log('Add medicine:', addMedicine);
 
 	return (
 		<Container>
@@ -30,35 +33,40 @@ console.log('Add medicine:', addMedicine);
 					<Input
 						placeholder="Medicine name"
 						type="text"
-						onChange={(event) => handleChange(event, setAddMedicine)}
+						onChange={(event) => handleChange(event, STATE_NAME.ADD_MEDICINE)}
 						name="medicineName"
+						value={addMedicine.medicineName}
 					/>
 					<Input
 						placeholder="Purchased Quantity"
 						type="number"
-						onChange={(event) => handleChange(event, setAddMedicine)}
+						onChange={(event) => handleChange(event, STATE_NAME.ADD_MEDICINE)}
 						name="quantity"
+						value={addMedicine.quantity}
 					/>
 					<Input
 						placeholder="intended days"
 						type="number"
-						onChange={(event) => {handleChange(event, setAddMedicine), findMedDueDate()}}
+						onChange={(event) => {
+							handleChange(event, STATE_NAME.ADD_MEDICINE), findMedDueDate();
+						}}
 						name="days"
+						value={addMedicine.days}
 					/>
-					{/* <br /> */}
-					<p >OR</p>
+					<p>OR</p>
 					<Input
 						placeholder="daily consumption"
 						type="number"
-						onChange={(event) => handleChange(event, setAddMedicine)}
+						onChange={(event) => handleChange(event, STATE_NAME.ADD_MEDICINE)}
 						name="dailyConsumption"
+						value={addMedicine.dailyConsumption}
 					/>
 					{/* <label htmlFor="expected-days"></label> */}
 				</form>
 				<p>Expected Date of full consumption:</p>
 				<h4>{medDueDate}</h4>
 				<div style={{ textAlign: "end" }}>
-					<BaseButton text="Add To List" onClick={()=>navigate(-1)} />
+					<BaseButton text="Add To List" onClick={() => navigate(-1)} />
 				</div>
 			</div>
 		</Container>
