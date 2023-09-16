@@ -1,9 +1,8 @@
 import React from 'react'
 import './Button.scss'
-import { useNavigate } from 'react-router-dom'
 
 export const BaseButton = ({text,bgc,color, onClick}) => {
-  const navigate = useNavigate();
+
 
   return (
     <div className='base-button-container'>
@@ -21,4 +20,13 @@ export const BackButton = ({onClick}) => {
       
     </div>
   );
+}
+
+
+export const HomeButton = ({text,onClick}) => {
+  return (
+    <div className='home-button-container'>
+      <button onClick={onClick}>{text}</button>
+    </div>
+  )
 }

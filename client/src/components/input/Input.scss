@@ -2,9 +2,11 @@
 
 .input-container{
     input{
-        width: 185px;
+        width: min(185px, 100% );
+        // width: 100%;
         height: 35px;
         padding: 0 10px;
+        // margin: 1px;
         background-color: $bg-color-primary;
         filter: contrast(90%);
         color: $text-color-secondary;

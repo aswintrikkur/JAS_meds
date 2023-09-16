@@ -1,51 +1,45 @@
-@import '../../index.scss';
+@import "../../index.scss";
 
-.new-data-container{
-    // text-align: center;
-    height: 100%;
-    // background-color: gray;
-    position: relative;
+.new-data-container {
+	// text-align: center;
+	height: 100%;
+	// background-color: gray;
+	position: relative;
 
+	.customer-details {
+		$height: 35px;
+		display: flex;
+		justify-content: center;
+		padding: 15px 0;
 
-    .customer-details{
-        $height:35px;
-        display: flex;
-        justify-content: center;
-        padding-top: 15px;        
+		border-bottom: 1px $text-color-ternary solid;
 
-        .col1{
+		.col1 {
+		}
+		.col2 {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
 
-        }
-        .col2{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+			select {
+				width: 185px;
+				height: 35px;
+				background-color: $bg-color-primary;
+				filter: contrast(90%);
+				border: 1px solid black;
+				color: $text-color-secondary;
+				font-size: 12px;
+				padding: 0 10px;
+			}
+		}
+	}
 
-            select{
-                width: 185px;
-                height: 35px;
-                background-color: $bg-color-primary;
-                filter: contrast(90%);
-                border: 1px solid black;
-                color: $text-color-secondary;
-                font-size: 12px;
-                padding: 0 10px;
-            }
-        }
-    
-
-    }
-
-    .medicine-details{
-        // margin-top: 25px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        // translate: -50% 0;
-
-
-
-    }
-    
+	.medicine-details {
+		// margin-top: 25px;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		// translate: -50% 0;
+	}
 }

@@ -2,8 +2,8 @@
 
 .base-button-container {
 	button {
-		width: 140px;
-		height: 35px;
+		// width: 140px;
+		padding:  8px 15px;
 		background-color: $bg-color-ternary;
 		color: $bg-color-secondary;
 		border-radius: 12px;
@@ -13,7 +13,7 @@
 		margin: 20px;
 	}
 	button:hover {
-		filter: brightness(130%);
+		filter: contrast(130%);
 	}
 }
 
@@ -33,5 +33,28 @@
 	}
 	button:focus{
 		scale: .9;
+	}
+}
+
+.home-button-container{
+
+	button{
+		width: 150px;
+		height: 70px;
+		// color: $bg-color-secondary;
+		color: $bg-color-ternary;
+		// background-color: $bg-color-ternary;
+		background-color: $bg-color-secondary;
+		filter: contrast(110%);
+		border-radius: 12px;
+		border: 1px solid black;
+		font-size: 20px;
+		font-weight: 500;
+		// margin: 20px;		
+	}
+	
+	button:hover {
+		filter: contrast(120%);
+		border: 1px solid $text-color-ternary;
 	}
 }
