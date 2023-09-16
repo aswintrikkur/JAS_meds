@@ -1,20 +1,66 @@
-@import '../../index.scss';
+@import "../../index.scss";
 
-.medicine-list-container{
-    width: 90%;
-    height: 450px;
-    border-radius: 10px;
-    background-color: $bg-color-primary;
-    color: $text-color-secondary;
-    filter: contrast(90%);
-    // overflow: scroll;
-    position: relative;
-    padding:  10px 20px;
+.medicine-list-container {
+	width: 90%;
+	height: 450px;
+	border-radius: 10px;
+	background-color: $bg-color-primary;
+	color: $text-color-secondary;
+	filter: contrast(90%);
+	// overflow: scroll;
+	position: relative;
+	padding: 10px 20px;
 
-    .submit-btn{
-        position: absolute;
-        bottom: 30px;
-        right: 10px;
-        
-    }
+	.list {
+	}
+	.file-upload {
+		// display: flex;
+		// flex-direction: column;
+		// justify-content: space-between;
+		margin: 20px 0;
+		.row1 {
+            display: flex;
+            text-wrap: nowrap;
+			label {
+				padding: 1px 2px;
+                // word-break: keep-all;
+                // word-break: normal;
+                
+				font-size: 14px;
+				// border: 1px solid $text-color-secondary;
+				background-color: $text-color-ternary;
+				color: $text-color-secondary;
+				margin-right: 5px;
+				cursor: pointer;
+                
+				input[type="file"] {
+					display: none;
+				}
+			}
+			> P {
+				font-size: 12px;
+                width: 100%;
+                padding-right: 60px;
+                height: 20px;
+                overflow: hidden;
+			}
+		}
+
+		.prescription-upload {
+            float: left;
+			margin: 3px 0;
+			width: fit-content;
+			padding: 0 5px;
+			font-size: 14px;
+			filter: contrast(60%);
+			border: 1px sold $text-color-secondary;
+            cursor: pointer;
+		}
+	}
+
+	.submit-btn {
+		position: absolute;
+		bottom: 30px;
+		right: 10px;
+	}
 }

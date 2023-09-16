@@ -3,7 +3,7 @@
 .base-button-container {
 	button {
 		// width: 140px;
-		padding:  8px 15px;
+		padding: 8px 15px;
 		background-color: $bg-color-ternary;
 		color: $bg-color-secondary;
 		border-radius: 12px;
@@ -17,12 +17,12 @@
 	}
 }
 
-.back-button-container{
+.back-button-container {
 	display: flex;
 	justify-content: end;
 	align-items: center;
 	padding: 5px;
-	button{
+	button {
 		width: 22px;
 		height: 22px;
 		font-size: 18px;
@@ -31,28 +31,23 @@
 		color: white;
 		border: none;
 	}
-	button:focus{
-		scale: .9;
+	button:focus {
+		scale: 0.9;
 	}
 }
 
-.home-button-container{
-
-	button{
+.home-button-container {
+	button {
 		width: 150px;
 		height: 70px;
-		// color: $bg-color-secondary;
-		color: $bg-color-ternary;
-		// background-color: $bg-color-ternary;
+		color: $text-color-secondary;
 		background-color: $bg-color-secondary;
 		filter: contrast(110%);
 		border-radius: 12px;
 		border: 1px solid black;
 		font-size: 20px;
 		font-weight: 500;
-		// margin: 20px;		
 	}
-	
 	button:hover {
 		filter: contrast(120%);
 		border: 1px solid $text-color-ternary;

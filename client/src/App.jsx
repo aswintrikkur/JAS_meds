@@ -9,8 +9,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/newData" element={<NewData />} />
-				{/* <Route path="/history" /> */}
-
+				<Route path="/history" />
 				<Route path="*" element={<ErrorPage/>} />
 			</Routes>
 		</div>
