@@ -1,19 +1,18 @@
-
 // export const useInputHandle=(event)=>{
 
 import { useState } from "react";
 
-
 //     return {}
 // }
 
-export const useInputHandle =(event)=>{
-    const [target,setTarget]=useState();
+export const useInputHandle = (initial) => {
+	// const [target, setTarget] = useState(initial);
 
-    setTarget(prev=>({
-        ...prev,
-        [event.target.name]:event.target.value
-    }))
-
-    return {target}
-}
+	const handleChange = (event,setFunction) => {
+		setFunction((prev) => ({
+			...prev,
+			[event.target.name]: event.target.value,
+		}));
+	};
+	return [ handleChange];
+};

@@ -4,12 +4,14 @@ import { Input } from "../../components/input/Input";
 import { BackButton, BaseButton } from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { Container } from "../../components/container/Container";
-import { handleInputOnchange } from "../../utils/Utils";
+import { useInputHandle } from "../../hooks/useInputHandle";
 
 export const AddMedicine = ({date}) => {
 	const [addMedicine, setAddMedicine] = useState({});
 	const [medDueDate,setMedDueDate]=useState(0);
 	const navigate = useNavigate();
+
+	const [handleChange]=useInputHandle(addMedicine);
 
 	const findMedDueDate =()=>{
 		console.log('DueDate:', date);
@@ -28,19 +30,19 @@ console.log('Add medicine:', addMedicine);
 					<Input
 						placeholder="Medicine name"
 						type="text"
-						onChange={(event) => handleInputOnchange(event, setAddMedicine)}
+						onChange={(event) => handleChange(event, setAddMedicine)}
 						name="medicineName"
 					/>
 					<Input
 						placeholder="Purchased Quantity"
 						type="number"
-						onChange={(event) => handleInputOnchange(event, setAddMedicine)}
+						onChange={(event) => handleChange(event, setAddMedicine)}
 						name="quantity"
 					/>
 					<Input
 						placeholder="intended days"
 						type="number"
-						onChange={(event) => {handleInputOnchange(event, setAddMedicine), findMedDueDate()}}
+						onChange={(event) => {handleChange(event, setAddMedicine), findMedDueDate()}}
 						name="days"
 					/>
 					{/* <br /> */}
@@ -48,7 +50,7 @@ console.log('Add medicine:', addMedicine);
 					<Input
 						placeholder="daily consumption"
 						type="number"
-						onChange={(event) => handleInputOnchange(event, setAddMedicine)}
+						onChange={(event) => handleChange(event, setAddMedicine)}
 						name="dailyConsumption"
 					/>
 					{/* <label htmlFor="expected-days"></label> */}
