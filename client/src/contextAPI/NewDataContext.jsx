@@ -1,43 +1,34 @@
-import { createContext, useContext, useState } from "react";
-import { STATE_NAME } from "../utils/Utils";
+import { createContext, useState } from "react";
 
 // ! ----------- CONTEXT ----------------
-// ? ---------NewDataContext  ------------
+// * --------- State Management for ['NewData.jsx','AddMedicine.jsx','MedicineList.jsx'] ----------------
 export const NewDataContext = createContext();
 
 export const NewDataProvider = ({ children }) => {
-	const [customerDetails, setCustomerDetails] = useState({});
-	const [addMedicine, setAddMedicine] = useState({});
+	const [customerDetails, setCustomerDetails] = useState([
+		// {
+		// 	customerId: "",
+		// 	customerName: "",
+		// 	address: "",
+		// 	mobile: "",
+		// 	date: "",
+		// 	doctorName: "",
+		// 	listOfMeds: [],
+		// },
+	]);
+	// const [addMedicine, setAddMedicine] = useState({
+	// 	medicineName: "",
+	// 	quantity: "",
+	// 	days: "",
+	// 	dailyConsumption: "",
+	// });
+	const [listOfMeds, setListOfMeds] = useState([]);
 
 	return (
-		<NewDataContext.Provider value={{ customerDetails, setCustomerDetails, addMedicine, setAddMedicine }}>
+		<NewDataContext.Provider
+			value={{ customerDetails, setCustomerDetails, /*addMedicine, setAddMedicine,*/ listOfMeds, setListOfMeds }}
+		>
 			{children}
 		</NewDataContext.Provider>
 	);
-};
-
-// ! -----------Custom HOOK----------------
-// ? ---------useInputHandle  ------------
-export const useInputHandle = () => {
-	// const [target, setTarget] = useState(initial);
-
-	const { customerDetails, setCustomerDetails, addMedicine, setAddMedicine } = useContext(NewDataContext);
-
-	const handleChange = (event, state) => {
-		let setFunction;
-		if (state == STATE_NAME.CUSTOMER_DETAILS) {
-			setFunction = setCustomerDetails;
-			setFunction((prev) => ({
-				...prev,
-				[event.target.name]: event.target.value,
-			}));
-		} else if (state == STATE_NAME.ADD_MEDICINE) {
-			setFunction = setAddMedicine;
-			setFunction((prev) => ({
-				...prev,
-				[event.target.name]: event.target.value,
-			}));
-		}
-	};
-	return [handleChange];
 };
