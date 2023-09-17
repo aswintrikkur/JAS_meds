@@ -5,29 +5,19 @@ import { createContext, useState } from "react";
 export const NewDataContext = createContext();
 
 export const NewDataProvider = ({ children }) => {
-	const [customerDetails, setCustomerDetails] = useState([
-		// {
-		// 	customerId: "",
-		// 	customerName: "",
-		// 	address: "",
-		// 	mobile: "",
-		// 	date: "",
-		// 	doctorName: "",
-		// 	listOfMeds: [],
-		// },
-	]);
-	// const [addMedicine, setAddMedicine] = useState({
-	// 	medicineName: "",
-	// 	quantity: "",
-	// 	days: "",
-	// 	dailyConsumption: "",
-	// });
+	const [customerDetails, setCustomerDetails] = useState({
+		customerId: "",
+		customerName: "",
+		address: "",
+		mobile: "",
+		date: "",
+		doctorName: "",
+		listOfMeds: [],
+	});
 	const [listOfMeds, setListOfMeds] = useState([]);
 
 	return (
-		<NewDataContext.Provider
-			value={{ customerDetails, setCustomerDetails, /*addMedicine, setAddMedicine,*/ listOfMeds, setListOfMeds }}
-		>
+		<NewDataContext.Provider value={{ customerDetails, setCustomerDetails, listOfMeds, setListOfMeds }}>
 			{children}
 		</NewDataContext.Provider>
 	);

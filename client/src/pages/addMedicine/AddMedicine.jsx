@@ -23,12 +23,14 @@ export const AddMedicine = ({ date }) => {
 	console.log("TempFields:", tempField);
 
 	// Input handling using Custom HOOK and fetching Data from CONTEXTAPI
-	const { handleChange, handleSubmit } = useInputHandle();
+	const { handleChange, customerDetails, handleSubmit } = useInputHandle();
 
 
 
 	const findMedDueDate = () => {
-		console.log("DueDate:", date);
+		const currentDate= customerDetails.date;
+		console.log("currentDate:", currentDate);
+		console.log(parseInt(currentDate).toString());
 	};
 
 	return (
@@ -41,8 +43,6 @@ export const AddMedicine = ({ date }) => {
 					<Input
 						placeholder="Medicine name"
 						type="text"
-						// onChange={(event) => handleChange(event, STATE_NAME.ADD_MEDICINE)}
-						// value={addMedicine.medicineName}
 						onChange={(event) => handleChangeLocal(event, setTempField)}
 						value={tempField.medicineName}
 						name="medicineName"
@@ -50,8 +50,6 @@ export const AddMedicine = ({ date }) => {
 					<Input
 						placeholder="Purchased Quantity"
 						type="number"
-						// onChange={(event) => handleChange(event, STATE_NAME.ADD_MEDICINE)}
-						// value={addMedicine.quantity}
 						onChange={(event) => handleChangeLocal(event, setTempField)}
 						value={tempField.quantity}
 						name="quantity"
@@ -59,11 +57,8 @@ export const AddMedicine = ({ date }) => {
 					<Input
 						placeholder="intended days"
 						type="number"
-						// onChange={(event) => {
-						// 	handleChange(event, STATE_NAME.ADD_MEDICINE), findMedDueDate();
-						// }}
-						// value={addMedicine.days}
 						onChange={(event) => handleChangeLocal(event, setTempField)}
+						onBlur={() => findMedDueDate()}
 						value={tempField.days}
 						name="days"
 					/>
@@ -71,9 +66,8 @@ export const AddMedicine = ({ date }) => {
 					<Input
 						placeholder="daily consumption"
 						type="number"
-						// onChange={(event) => handleChange(event, STATE_NAME.ADD_MEDICINE)}
-						// value={addMedicine.dailyConsumption}
 						onChange={(event) => handleChangeLocal(event, setTempField)}
+						onBlur={() => findMedDueDate()}
 						value={tempField.dailyConsumption}
 						name="dailyConsumption"
 					/>

@@ -11,7 +11,6 @@ import { NewDataContext } from "../../contextAPI/NewDataContext";
 // import { NewDataContext, useInputHandle } from "../../contextAPI/NewDataContext";
 
 export const NewData = () => {
-	
 	const [tempField, setTempField] = useState({
 		customerId: "",
 		customerName: "",
@@ -19,26 +18,29 @@ export const NewData = () => {
 		mobile: "",
 		date: "",
 		doctorName: "",
+		listOfMeds: [],
 	});
 	const navigate = useNavigate();
-	const {setCustomerDetails}=useContext(NewDataContext); //Context API using for updating customerDetails
 
-	// input handle Loacally
+	// input handle Loacally for onChange events
 	const { handleChangeLocal } = useInputHandleLocal();
-	console.log("custome details TEMP:", tempField);
+	console.log("customer details TEMP:", tempField);
 
+	useEffect(() => {
+		setTempField(customerDetails);
+	}, []);
+
+	
+	const {  setCustomerDetails } = useContext(NewDataContext); //Context API using for updating customerDetails
 	// save customer details to the context api
-	const handleSave=(customerData)=>{
-		setCustomerDetails(prev=>([
-			...prev,
-			customerData
-		]));
-	}
+	const handleSave = (customerData) => {
+		setCustomerDetails(customerData);
+	};
 
-	// Input handling using Custom HOOKS and CONTEXTAPI
-	const { customerDetails, listOfMeds, handleChange, handleSubmit } = useInputHandle();
+	// Fetching data from ContextApi using Hooks.
+	const { customerDetails, listOfMeds } = useInputHandle();
 	console.log("Customer Details:", customerDetails);
-	console.log("UpdatedList of Meds:", listOfMeds);
+	// console.log("UpdatedList of Meds:", listOfMeds);
 
 	return (
 		<Container>
@@ -50,7 +52,7 @@ export const NewData = () => {
 							type="number"
 							// onChange={(event) => handleChange(event, STATE_NAME.CUSTOMER_DETAILS)}
 							onChange={(event) => handleChangeLocal(event, setTempField)}
-							value={customerDetails.customerId}
+							value={tempField.customerId}
 							name="customerId"
 						/>
 						<Input
@@ -58,7 +60,7 @@ export const NewData = () => {
 							type="text"
 							// onChange={(event) => handleChange(event, STATE_NAME.CUSTOMER_DETAILS)}
 							onChange={(event) => handleChangeLocal(event, setTempField)}
-							value={customerDetails.customerName}
+							value={tempField.customerName}
 							name="customerName"
 						/>
 						<Input
@@ -66,7 +68,7 @@ export const NewData = () => {
 							type="text"
 							// onChange={(event) => handleChange(event, STATE_NAME.CUSTOMER_DETAILS)}
 							onChange={(event) => handleChangeLocal(event, setTempField)}
-							value={customerDetails.address}
+							value={tempField.address}
 							name="address"
 						/>
 						<Input
@@ -74,7 +76,7 @@ export const NewData = () => {
 							type="number"
 							// onChange={(event) => handleChange(event, STATE_NAME.CUSTOMER_DETAILS)}
 							onChange={(event) => handleChangeLocal(event, setTempField)}
-							value={customerDetails.mobile}
+							value={tempField.mobile}
 							name="mobile"
 						/>
 					</div>
@@ -84,15 +86,17 @@ export const NewData = () => {
 							type="date"
 							// onChange={(event) => handleChange(event, STATE_NAME.CUSTOMER_DETAILS)}
 							onChange={(event) => handleChangeLocal(event, setTempField)}
-							value={customerDetails.date}
+							value={tempField.date || '2023-01-10'}
 							name="date"
+							// value="2018-07-22"
+							 min="2023-01-01" max="2050-12-31"
 						/>
 						<Input
 							placeholder="Doctor Name"
 							type="text"
 							// onChange={(event) => handleChange(event, STATE_NAME.CUSTOMER_DETAILS)}
 							onChange={(event) => handleChangeLocal(event, setTempField)}
-							value={customerDetails.doctorName}
+							value={tempField.doctorName}
 							name="doctorName"
 						/>
 						<button className="save-customer-details" onClick={() => handleSave(tempField)}>

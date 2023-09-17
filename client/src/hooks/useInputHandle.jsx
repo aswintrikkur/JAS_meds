@@ -5,51 +5,22 @@ import { STATE_NAME } from "../utils/Utils";
 // * For handling input boxes of 'NewData.jsx' and 'AddMedicine.jsx'
 //   States will be stored in ContextApi (NewDataContext)
 export const useInputHandle = () => {
-	// const { customerDetails, setCustomerDetails, addMedicine, setAddMedicine, listOfMeds, setListOfMeds } =
-	// 	useContext(NewDataContext);
+	const { customerDetails, setCustomerDetails, listOfMeds, setListOfMeds } = useContext(NewDataContext);
 
-	const handleChange = (event, state) => {
-		let setFunction;
-		if (state == STATE_NAME.CUSTOMER_DETAILS) {
-			setFunction = setCustomerDetails;
-			// setFunction((prev) => ({
-			// 	...prev,
-			// 	[event.target.name]: event.target.value,
-			// }));
-			setFunction((prev) => [
-				...prev,
-				{
-					[event.target.name]: event.target.value,
-				},
-			]);
-		}
+	//*  In latest commit, onChange event stores data locally and submit event stores data into ContextAPI
 
-		//  else if (state == STATE_NAME.ADD_MEDICINE) {
-		// 	setFunction = setAddMedicine;
-		// 	setFunction((prev) => ({
-		// 		...prev,
-		// 		[event.target.name]: event.target.value,
-		// 	}));
-		// }
-	};
-
+	// AddMedicine submit button handle
 	const handleSubmit = (data) => {
 		setListOfMeds((prev) => [...prev, data]);
-		// setCustomerDetails((prev) => ({
-		// 	...prev,
-		// 	listOfMeds: data,
-		// }));
-		setCustomerDetails(prev=>([
-            // const data = listOfMeds
-            // {
-            //     ...prev[0],
-            //     // listOfMeds:listOfMeds.push()
-            // }
-        ]))
-        console.log('New medicine add to list :error here');
-	};
 
-	return { customerDetails, addMedicine, listOfMeds, handleChange, handleSubmit };
+        setCustomerDetails(prev=>{
+            const newData = {...prev};
+            newData.listOfMeds.push(data);
+            return newData
+        })
+    };
+
+	return { customerDetails, listOfMeds,  handleSubmit };
 };
 
 //*    For handling input fields locally.

@@ -1,11 +1,15 @@
 @import "../../index.scss";
 
+h3{
+	
+}
 .medicine-list-container {
     height: 400px;
     // background-color: rgba(134, 52, 134, 0.267);
     position: relative;
 
 	.list {
+		height: 250px;
 	}
 	.file-upload {
 		// display: flex;
