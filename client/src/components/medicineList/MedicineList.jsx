@@ -3,6 +3,7 @@ import "./MedicineList.scss";
 import { BaseButton } from "../button/Button";
 import { CardContainer } from "../container/Container";
 import { useInputHandle } from "../../hooks/useInputHandle";
+import toast, {Toaster} from 'react-hot-toast'
 
 export const MedicineList = () => {
 	const [file, setFile] = useState({
@@ -28,11 +29,17 @@ export const MedicineList = () => {
 	// Fetching Data from CONTEXTAPI using custom HOOK
 	const { customerDetails, listOfMeds } = useInputHandle();
 
+	// * Data Final Submit Handlilng
+	const handleSubmitData=(event)=>{
+		toast.success('Data submitted');
+	}
+
 	return (
 		<CardContainer>
 			<div className="title">
 				<h3>List of Medicines</h3>
 			</div>
+			
 			{listOfMeds[0]?.medicineName && (
 				<div style={{ position: "relative" }}>
 					<div className="medicine-list-container">
@@ -76,7 +83,7 @@ export const MedicineList = () => {
 					</div>
 					<div className="submit-btn">
 						{/* //TODO: validation onSubmit */}
-						<BaseButton text="SUBMIT" />
+						<BaseButton text="SUBMIT"  onClick={handleSubmitData}/>
 					</div>
 				</div>
 			)}

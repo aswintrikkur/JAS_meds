@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { STATE_NAME } from "../../utils/Utils";
 import { useInputHandle, useInputHandleLocal } from "../../hooks/useInputHandle";
 import { NewDataContext } from "../../contextAPI/NewDataContext";
+import { Toaster } from "react-hot-toast";
 // import { NewDataContext, useInputHandle } from "../../contextAPI/NewDataContext";
 
 export const NewData = () => {
@@ -45,6 +46,7 @@ export const NewData = () => {
 
 	return (
 		<Container>
+			<div><Toaster/> </div>
 			<div className="new-data-container">
 				<div className="customer-details">
 					<div className="col1">
