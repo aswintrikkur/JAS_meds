@@ -7,18 +7,18 @@
 	top: 0;
 	// filter: blur(3px);
 	backdrop-filter: blur(6px);
-	z-index: 2;
+	z-index: 3;
 }
 .add-medicine-container {
 	text-align: start;
 	width: 90%;
 	min-height: 70%;
-	padding: 30px 20px;
+	padding: 30px 10px;
 	position: absolute;
 	top: 150px;
 	left: 50%;
 	translate: -50% 0;
-	z-index: 3;
+	z-index: 4;
 	border-radius: 30px;
 	box-shadow: rgba(122, 122, 122, 0.3) 0px 19px 38px, rgba(122, 122, 122, 0.22) 0px 15px 12px;
 	background-color: $bg-color-secondary;
@@ -33,28 +33,65 @@
 		padding: 50px 20px;
 		padding-bottom: 20px;
 		// z-index: inherit;
+		// text-align: center;
+		.row1 {
+			Input {
+				margin-bottom: 10px;
+				width: 85%;
+			}
+			// display: flex;
+			// flex-direction: column;
+		}
+		.row2 {
+			margin-top: 60px;
+			margin-bottom: 20px;
+			// display: flex;
 
-		p{
-			padding: 10px 20px;
+			.select-option {
+				display: flex;
+				// align-items: center;
+				justify-content: space-between;
+				font-size: 14px;
+				margin-bottom: 15px;
+				.col {
+					display: flex;
+					align-items: center;
+					input {
+						height: 14px;
+					}
+				}
+			}
+			Input {
+				// width: 75%;
+				// padding-right: 5px;
+			}
 
+			p {
+				font-size: 12px;
+				padding: 10px 10px;
+			}
 		}
 	}
+	.check-due{
+		background-color: aqua;
+		margin-left: 20px;
+	}
 
-	>p{
+	> p {
 		font-weight: 400;
 		margin-bottom: 20px;
 		padding-left: 20px;
-		span{
+		span {
 			font-weight: 700;
 			font-size: 18px;
 			padding-left: 10px;
 		}
 	}
-	.add-to-list{
+	.add-to-list {
 		// text-align: end;
 		display: flex;
 		justify-content: end;
-		:first-child{
+		:first-child {
 			// display: none;
 		}
 	}

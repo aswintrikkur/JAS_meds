@@ -31,6 +31,7 @@ export const useInputHandleLocal = () => {
 			...prev,
 			[event.target.name]: event.target.value,
 		}));
+        // console.log('handleChangeLocal Executed');
 	};
 
 	return { handleChangeLocal };

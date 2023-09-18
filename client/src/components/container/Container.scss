@@ -2,25 +2,32 @@
 
 .container{
     max-width: 400px;
-    min-height: 812px;
-    // height: min(100vh,812px);  //* this helps to avoid scroll bar, but
+    // min-height: 812px;
+    height: min(100vh,812px);  //* this helps to avoid scroll bar, but
     // height: 100vh;
     background-color: $bg-color-primary;
     overflow: hidden;
     z-index: 1;
     position: relative;
+    word-break: break-all; 
     
 }
 
 .card-container{
     width: 90%;
+    // height: clamp(100px ,55vh,500px);
+    min-height: 70px;
+    max-height: 450px;
+    // height: ;
+    
     border-radius: 10px;
 	background-color: $bg-color-primary;
 	color: $text-color-secondary;
 	filter: contrast(90%);
-	// overflow: scroll;
+	overflow-x: hidden;
 	position: relative;
-	padding: 20px 20px;
+	padding: 0px 20px;
     // padding-bottom: 60px;
+    // word-break: ; 
 
 }

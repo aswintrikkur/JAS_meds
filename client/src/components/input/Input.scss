@@ -4,14 +4,24 @@
     input{
         width: min(185px, 100% );
         // width: 100%;
-        height: 35px;
+        min-height: 35px;
         padding: 0 10px;
         // margin: 1px;
         background-color: $bg-color-primary;
         filter: contrast(90%);
         color: $text-color-secondary;
         border: 1px solid black;
+        overflow-wrap: normal;
+        text-wrap: wrap;
+
     }
+    input[type="date"]{
+        // display: block;
+        // width: 100px;
+
+
+    }
+    
     input:focus{
         color:$text-color-primary;
     }

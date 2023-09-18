@@ -18,6 +18,7 @@ export const NewData = () => {
 		mobile: "",
 		date: "",
 		doctorName: "",
+		staffName: "",
 		listOfMeds: [],
 	});
 	const navigate = useNavigate();
@@ -30,10 +31,10 @@ export const NewData = () => {
 		setTempField(customerDetails);
 	}, []);
 
-	
-	const {  setCustomerDetails } = useContext(NewDataContext); //Context API using for updating customerDetails
+	const { setCustomerDetails } = useContext(NewDataContext); //Context API using for updating customerDetails
 	// save customer details to the context api
-	const handleSave = (customerData) => {
+	const handleSave = (event, customerData) => {
+		// event.preventDefault();
 		setCustomerDetails(customerData);
 	};
 
@@ -54,6 +55,7 @@ export const NewData = () => {
 							onChange={(event) => handleChangeLocal(event, setTempField)}
 							value={tempField.customerId}
 							name="customerId"
+							required="required"
 						/>
 						<Input
 							placeholder="Customer Name"
@@ -62,6 +64,7 @@ export const NewData = () => {
 							onChange={(event) => handleChangeLocal(event, setTempField)}
 							value={tempField.customerName}
 							name="customerName"
+							required="required"
 						/>
 						<Input
 							placeholder="Address"
@@ -78,6 +81,7 @@ export const NewData = () => {
 							onChange={(event) => handleChangeLocal(event, setTempField)}
 							value={tempField.mobile}
 							name="mobile"
+							required="required"
 						/>
 					</div>
 					<div className="col2">
@@ -85,11 +89,12 @@ export const NewData = () => {
 							placeholder="Date"
 							type="date"
 							// onChange={(event) => handleChange(event, STATE_NAME.CUSTOMER_DETAILS)}
+							min="2023-01-01"
+							max="2050-12-31"
 							onChange={(event) => handleChangeLocal(event, setTempField)}
-							value={tempField.date || '2023-01-10'}
+							value={tempField.date || "2023-09-01"}
 							name="date"
-							// value="2018-07-22"
-							 min="2023-01-01" max="2050-12-31"
+							required="required"
 						/>
 						<Input
 							placeholder="Doctor Name"
@@ -99,9 +104,18 @@ export const NewData = () => {
 							value={tempField.doctorName}
 							name="doctorName"
 						/>
-						<button className="save-customer-details" onClick={() => handleSave(tempField)}>
-							save
-						</button>
+						<Input
+							placeholder="Staff Name"
+							type="text"
+							onChange={(event) => handleChangeLocal(event, setTempField)}
+							value={tempField.staffName}
+							name="staffName"
+							required="required"
+						/>
+						{/* //TODO: create validation onClick */}
+						<button className="save-customer-details" onClick={(event) => handleSave(event, tempField)}>
+							save	
+						</button> 
 					</div>
 				</div>
 				<div className="medicine-details">

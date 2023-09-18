@@ -12,6 +12,7 @@ export const NewDataProvider = ({ children }) => {
 		mobile: "",
 		date: "",
 		doctorName: "",
+		staffName: '',
 		listOfMeds: [],
 	});
 	const [listOfMeds, setListOfMeds] = useState([]);

@@ -1,8 +1,15 @@
 @import '../../index.scss';
 
 .header-container{
+    width: 100%;
     background-color: $bg-color-secondary;
     filter: contrast(120%);
     padding: 10px;
+    // margin-bottom: 10px;
     text-align: center;
+    position: -webkit-sticky;
+    position: sticky;   //TODO: make it's parent as body for stick on top
+    top: 0;
+    left: 0;
+    z-index: 3;
 }

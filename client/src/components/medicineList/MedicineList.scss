@@ -1,64 +1,117 @@
 @import "../../index.scss";
 
-h3{
-	
+.title {
+	// height: 50px;
+	font-size: 22px;
+	// margin: 20px;
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	padding: 10px;
+	background-color: inherit;
+	// background-color: aqua;
+	h3 {
+	}
 }
 .medicine-list-container {
-    height: 400px;
-    // background-color: rgba(134, 52, 134, 0.267);
-    position: relative;
+	// min-height: 300px;
+	// background-color: rgba(134, 52, 134, 0.267);
+	position: relative;
 
-	.list {
-		height: 250px;
+	ul {
+		min-height: 150px;
+		// background-color: #fff;
+		.med-list {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			min-height: 26px;
+			margin-bottom: 8px;
+			li {
+				font-size: 18px;
+				// min-width: 100%;
+				// background-color: rgb(91, 39, 116);
+				// text-wrap: wrap;
+			}
+			p {
+				display: none;
+				// max-height: 12px;
+				width: 50%;
+				font-size: 12px;
+				// background-color: aqua;
+				// margin-left: 50px;
+				margin-left: auto;
+			}
+		}
 	}
+	.nrx-drugs-container{
+		label{
+			font-size: 14px;
+			font-weight: 700;
+		}
+		input{
+			height: 14px;
+
+		}
+		.nrx-drug{
+			// display: none;
+			width: 100px;
+			background-color: $text-color-secondary;
+		}
+	}
+
 	.file-upload {
 		// display: flex;
 		// flex-direction: column;
 		// justify-content: space-between;
 		margin: 20px 0;
+		padding-bottom: 40px;
 		.row1 {
-            display: flex;
-            text-wrap: nowrap;
+			display: flex;
+			text-wrap: nowrap;
 			label {
 				padding: 1px 2px;
-                // word-break: keep-all;
-                // word-break: normal;
-                
+				// word-break: keep-all;
+				// word-break: normal;
+	
 				font-size: 14px;
 				// border: 1px solid $text-color-secondary;
 				background-color: $text-color-ternary;
 				color: $text-color-secondary;
 				margin-right: 5px;
 				cursor: pointer;
-                
+	
 				input[type="file"] {
 					display: none;
 				}
 			}
 			> P {
 				font-size: 12px;
-                width: 100%;
-                padding-right: 60px;
-                height: 20px;
-                overflow: hidden;
+				width: 100%;
+				padding-right: 60px;
+				height: 20px;
+				overflow: hidden;
 			}
 		}
-
+	
 		.prescription-upload {
-            float: left;
+			// float: left;
 			margin: 3px 0;
 			width: fit-content;
 			padding: 0 5px;
 			font-size: 14px;
 			filter: contrast(60%);
 			border: 1px sold $text-color-secondary;
-            cursor: pointer;
+			cursor: pointer;
 		}
 	}
-
-	.submit-btn {
-		position: absolute;
-		bottom: 0px;
-		right: 0px;
-	}
+	
+	
+}
+.submit-btn {
+	position: absolute;
+	// background-color: antiquewhite;
+	bottom: -20px;
+	// margin-top: 40px;
+	right: 0px;
 }
