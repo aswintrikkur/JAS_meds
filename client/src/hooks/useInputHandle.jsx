@@ -23,16 +23,18 @@ export const useInputHandle = () => {
 	return { customerDetails, listOfMeds,  handleSubmit };
 };
 
+
 //*    For handling input fields locally.
 //     States will be stored in local component itself
 export const useInputHandleLocal = () => {
 	const handleChangeLocal = (event, setState) => {
+
+		console.log('==========================  ', typeof(event.target.value));
 		setState((prev) => ({
 			...prev,
 			[event.target.name]: event.target.value,
 		}));
         // console.log('handleChangeLocal Executed');
 	};
-
 	return { handleChangeLocal };
 };

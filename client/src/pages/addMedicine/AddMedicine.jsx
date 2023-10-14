@@ -7,17 +7,19 @@ import { Container } from "../../components/container/Container";
 import { STATE_NAME } from "../../utils/Utils";
 import { useInputHandle, useInputHandleLocal } from "../../hooks/useInputHandle";
 
-export const AddMedicine = () => {
+export const  AddMedicine = () => {
 	const [selectOption, setSelectOption] = useState({
 		name: "days",
 		value: "",
 	});
+
 	const [tempField, setTempField] = useState({
 		medicineName: "",
 		quantity: "",
 		[selectOption.name]: selectOption.value,
 		dueDate: "",
 	});
+
 	const [medDueDate, setMedDueDate] = useState();
 
 	const navigate = useNavigate();
@@ -25,7 +27,7 @@ export const AddMedicine = () => {
 	// handling radio button
 	const handleSelect = (event) => {
 		if (event?.target.name == "select-option") {
-			console.log(event.target.value);
+			console.log("handle select value type", typeOf(event.target.value));
 			setSelectOption((prev) => ({
 				...prev,
 				name: event.target.value,
@@ -34,9 +36,9 @@ export const AddMedicine = () => {
 		findMedDueDate(); //! BUG: Due date not updating when radio button changes after filling the field.
 	};
 
-	console.log("selected", selectOption);
+	// console.log("selected", selectOption);
 	console.log("TempFields:", tempField);
-	console.log("medDueDate:", medDueDate);
+	// console.log("medDueDate:", medDueDate);
 
 	// Input handling for local state
 	const { handleChangeLocal } = useInputHandleLocal();
@@ -47,14 +49,12 @@ export const AddMedicine = () => {
 	//! To find due date
 	const findMedDueDate = (event) => {
 		const { value, name } = event.target;
-
-		// let currentDate =
 		const currentDate = new Date(customerDetails.date || Date.now());
 
 		// setTimeout(() => {
 		if (name == "days") {
 			currentDate.setDate(currentDate.getDate() + Number(value)); //* manipulating currentDate
-			console.log(currentDate);
+			// console.log(currentDate);
 			setTempField((prev) => ({
 				...prev,
 				dueDate: currentDate,
@@ -79,7 +79,7 @@ export const AddMedicine = () => {
 				<form>
 					<div className="row1">
 						<Input
-							placeholder="Medicine name"
+							placeholder="Medicine name"							
 							type="text"
 							onChange={(event) => handleChangeLocal(event, setTempField)}
 							value={tempField.medicineName}
@@ -88,6 +88,7 @@ export const AddMedicine = () => {
 						<Input
 							placeholder="Purchased Quantity"
 							type="number"
+
 							onChange={(event) => handleChangeLocal(event, setTempField)}
 							value={tempField.quantity}
 							name="quantity"
@@ -131,7 +132,7 @@ export const AddMedicine = () => {
 					</div>
 				</form>
 				{/* //TODO: use this btn for findMedDueDate() */}
-				{/* <button className="check-due">check</button>*/}	
+				{/* <button className="check-due">check</button>*/}
 				<p>
 					Medicine Due Date:<span>{medDueDate}</span>
 				</p>

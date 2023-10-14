@@ -7,14 +7,15 @@
 	position: relative;
 
 	.customer-details {
-		// $height: 35px;
 		height: 175px;
+		// height: 275px;
 		display: flex;
 		justify-content: center;
 		padding: 15px 8px;
 		overflow: hidden;
 		border-bottom: 1px $text-color-ternary solid;
-
+		// box-shadow: inset 0px 0px 27px 5px rgb(61, 61, 61),7px 17px 17px -6px rgb(61, 61, 61);
+		
 		.col1 {
 		}
 		.col2 {

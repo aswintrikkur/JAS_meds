@@ -8,10 +8,12 @@ import { Container } from "../../components/container/Container";
 
 export const Home = () => {
 	const navigate = useNavigate();
+
 	return (
 		<Container>
 			<div className="home-container">
 				{/* <Header /> */}
+				
 				<div className="btn-container">
 					<HomeButton text="New Data"  onClick={()=>{navigate('/newData')}}/>
 					<HomeButton text="History"  onClick={()=>{navigate('/history')}} />
