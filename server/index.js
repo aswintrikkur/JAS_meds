@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 
 const connectDB = require('./config/db');
+const {userRoute} = require('./routes/userRoute');
+const { genericError } = require('./error/errorHandle');
 require('dotenv').config();
 
 const app = express();
@@ -20,9 +22,11 @@ app.listen(port, () => {
 
 
 // -----------routes-------------
-// app.use('/api/user', userRoute)
+app.use('/api/user', userRoute)
 // app.use('/api/todo', todoRoute);
 
+
+app.use(genericError)
 
 app.all('*', (req, res) => {
     res.json(`API does not exist`);
