@@ -5,7 +5,10 @@ const router = express.Router();
 
 
 router.post('/register', register);
+// router.post('/register/verify', verifyOtp );
+
 router.post('/login', login);
+
 router.get('/home', checkAuth, home);
 
 

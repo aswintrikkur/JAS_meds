@@ -46,7 +46,9 @@ export const NewData = () => {
 
 	return (
 		<Container>
-			<div><Toaster/> </div>
+			<div>
+				<Toaster />{" "}
+			</div>
 			<div className="new-data-container">
 				<div className="customer-details">
 					<div className="col1">
@@ -116,12 +118,12 @@ export const NewData = () => {
 						/>
 						{/* //TODO: create validation onClick */}
 						<button className="save-customer-details" onClick={(event) => handleSave(event, tempField)}>
-							save	
-						</button> 
+							save
+						</button>
 					</div>
 				</div>
 				<div className="medicine-details">
-					<BaseButton text="ADD Medicine" bgc="#233545" color="#a39e9e" onClick={() => navigate("/addMed")} />
+					<BaseButton text="ADD Medicine" bgc="#144D5F" color="#ffff" onClick={() => navigate("/addMed")} />
 					<MedicineList />
 				</div>
 			</div>

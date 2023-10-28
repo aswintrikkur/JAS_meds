@@ -1,16 +1,23 @@
 const { Users } = require("../models/userModel");
 const { generatePasswordHash, comparePasswordHash } = require("../utils/bcrypt");
-const { genericError } = require("../error/errorHandle");
 const { handleMissingProps } = require("../error/handleMissingProps");
 const { generateAccessToken } = require("../utils/jwt");
+const { sendOtpToAdmin, OTP } = require("../utils/twilio");
+
+
+// global variables
+const newOtp = new OTP();
+let tempUser;
 
 
 //=======register=========
 const register = async (req, res, next) => {
     try {
         const { username, email, mobile, password } = req.body;
+        tempUser = { username, email, mobile, password }
+
         //handle missing props in req.body
-        const response = handleMissingProps({ username, email, mobile, password }, res);
+        const response = handleMissingProps(tempUser, res);
         if (response === true) return;
 
 
@@ -21,17 +28,52 @@ const register = async (req, res, next) => {
             })
         };
 
-        //store user in DB
-        const hashedPassword = await generatePasswordHash(password);
-        const dbResponse = await Users.create({ username, email, mobile, password: hashedPassword });
-        res.status(200).json({
-            message: 'user register successful'
-        });
+        // generate otp
+        const firstOtp = newOtp.generate()
+
+        //send otp to admin
+        const { message } = await sendOtpToAdmin(tempUser, firstOtp);
+
+        return res.json({
+            // message: 'otp sent to admin'
+            message: message ? 'message send to admin' : 'something went wrong'
+        })
 
     } catch (error) {
         next(error);
     }
 }
+
+
+// ========= register verify by admin ==========
+const registerVerify = async (req, res, next) => {
+
+    try {
+        const { otp } = req.body;
+
+        const isOtpVerify = newOtp.verify(otp);
+
+        if (!isOtpVerify) {
+            return res.status(400).json({
+                message: 'invalid otp'
+            })
+        }
+
+        //store user in DB
+        const hashedPassword = await generatePasswordHash(tempUser.password);
+        const user = { ...tempUser };
+        user.password = hashedPassword;
+        const dbResponse = await Users.create(user);
+        res.status(200).json({
+            message: 'user register successful'
+        });
+    } catch (error) {
+        next(error)
+    }
+
+
+}
+
 
 
 
@@ -41,7 +83,7 @@ const login = async (req, res, next) => {
         const { email, password } = req.body;
         //handle missing props in req.body
         const response = handleMissingProps({ email, password }, res);
-        if (response === true) return;
+        if (response) return;
 
         const userData = await Users.findOne({ email });
         if (!userData) {
@@ -59,8 +101,8 @@ const login = async (req, res, next) => {
         }
 
         //generate accesstoken and send to client  
-        const accessToken =  generateAccessToken(userData._id);
-        res.json({  accessToken });
+        const accessToken = generateAccessToken(userData._id);
+        res.json({ accessToken });
 
     } catch (error) {
         next(error);
@@ -72,10 +114,9 @@ const login = async (req, res, next) => {
 
 
 //====== home ========
-const home = async(req,res,next)=>{
+const home = async (req, res, next) => {
 
     try {
-
         const userData = await Users.findById(req.userId).select('-password');
         res.json({
             data: userData
@@ -90,4 +131,4 @@ const home = async(req,res,next)=>{
 
 
 
-module.exports = { register, login, home }
+module.exports = { register, registerVerify, login, home }

@@ -22,6 +22,7 @@ function handleMissingProps(props, res) {
         })
         return true;
     }
+    return false;
 }
 
 

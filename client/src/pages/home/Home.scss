@@ -1,28 +1,37 @@
 @import "../../index.scss";
 
 .home-container {
-	height: 100%;
-	// background-color: beige;
-	text-align: center;
-	// h1 {
-	// 	 background-color: $bg-color-secondary;
-	// 	padding: 15px 0px;
-	// }
-	.btn-container {
-		margin-top: 100px;
-		margin-inline: auto;
-		width: fit-content;
-		// background-color: bisque;
-		
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 20px 40px;
-		// place-content: center;
-		// place-self: center;
-		
-		button {
-			// margin: 30px;
-			// padding: 30px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 30px;
+
+	.title {
+		// margin-top: 50px;
+		width: 100%;
+		// height: 280px;
+		position: relative;
+
+		img {
+			width: 100%;
+			height: 230px;
+			// background-color: aqua;
+			scale: 1.5;
+		}
+		h3 {
+			text-align: center;
+			width: 80%;
+			word-break: normal;
+			font-size: 30px;
+
+			position: absolute;
+			top: 50%;
+			left: 50%;
+
+			translate: -50% -50%;
 		}
 	}
+
+
 }

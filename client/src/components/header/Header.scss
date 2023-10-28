@@ -2,14 +2,40 @@
 
 .header-container{
     width: 100%;
-    background-color: $bg-color-secondary;
-    filter: contrast(120%);
-    padding: 10px;
-    // margin-bottom: 10px;
+    // background-color: $bg-color-secondary;
+    // filter: contrast(120%);
+    background-color:  #144D5F;
+    padding-top:  10px;
+    // padding-bottom: 1px;
     text-align: center;
     position: -webkit-sticky;
     position: sticky;   //TODO: make it's parent as body for stick on top
     top: 0;
     left: 0;
     z-index: 3;
+
+    font-size: 16px;
+
+    .row1{
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+    }
+    .nav{
+        width: fit-content;
+        margin-left:auto ;
+        display: flex;    
+        gap: 15px;
+        padding-bottom: 8px;
+
+        li{
+            list-style: none;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
 }

@@ -4,6 +4,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const {userRoute} = require('./routes/userRoute');
 const { genericError } = require('./error/errorHandle');
+const {customerRoute} = require('./routes/customerRoute');
 require('dotenv').config();
 
 const app = express();
@@ -23,7 +24,7 @@ app.listen(port, () => {
 
 // -----------routes-------------
 app.use('/api/user', userRoute)
-// app.use('/api/todo', todoRoute);
+app.use('/api/customer', customerRoute);
 
 
 app.use(genericError)
