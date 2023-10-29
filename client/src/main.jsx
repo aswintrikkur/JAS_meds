@@ -4,11 +4,14 @@ import App from "./App.jsx";
 import "./index.scss";
 import { BrowserRouter } from "react-router-dom";
 import { NewDataProvider } from "./contextAPI/NewDataContext.jsx";
+import { AuthProvider } from "./contextAPI/AuthContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-	<NewDataProvider>
+	<AuthProvider>
+		<NewDataProvider>
 			<BrowserRouter>
 				<App />
 			</BrowserRouter>
-	</NewDataProvider>
+		</NewDataProvider>
+	</AuthProvider>
 );

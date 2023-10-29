@@ -1,11 +1,11 @@
 const express = require('express');
-const { register, login, home } = require('../controllers/userController');
+const { signup, login, home, signupVerify } = require('../controllers/userController');
 const { checkAuth } = require('../middlewares/checkAuth');
 const router = express.Router();
 
 
-router.post('/register', register);
-// router.post('/register/verify', verifyOtp );
+router.post('/signup', signup);
+router.post('/signup/verify', signupVerify );
 
 router.post('/login', login);
 

@@ -10,8 +10,8 @@ const newOtp = new OTP();
 let tempUser;
 
 
-//=======register=========
-const register = async (req, res, next) => {
+//======= signup =========
+const signup = async (req, res, next) => {
     try {
         const { username, email, mobile, password } = req.body;
         tempUser = { username, email, mobile, password }
@@ -45,8 +45,8 @@ const register = async (req, res, next) => {
 }
 
 
-// ========= register verify by admin ==========
-const registerVerify = async (req, res, next) => {
+// ========= signup verify by admin ==========
+const signupVerify = async (req, res, next) => {
 
     try {
         const { otp } = req.body;
@@ -100,6 +100,8 @@ const login = async (req, res, next) => {
             });
         }
 
+        res.json(userData)
+
         //generate accesstoken and send to client  
         const accessToken = generateAccessToken(userData._id);
         res.json({ accessToken });
@@ -131,4 +133,4 @@ const home = async (req, res, next) => {
 
 
 
-module.exports = { register, registerVerify, login, home }
+module.exports = { signup , signupVerify, login, home }

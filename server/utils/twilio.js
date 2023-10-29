@@ -9,15 +9,15 @@ const sendOtpToAdmin = async (user,otp) => {
 
 
         const message = await client.messages.create({
-            // from: 'whatsapp:+14155238886',  //for whatsapp messages
+            // from: 'whatsapp:+14155238886',     //*for whatsapp messages
             // to: 'whatsapp:+917559853058',
             // body:'Welcome Aswikumar.',
-            from: '+12692056828',    //for text messages
+            from: '+12692056828',            //*for text messages
             to: '+917559853058',
             body: ` ${userDetails} tries create an account in JAS_Meds app. 
             OTP for registration is  ${otp} `,
         });
-        console.log(message);
+        // console.log(message);
         return { message };
  
     } catch (error) {
@@ -33,9 +33,9 @@ function OTP() {
     this.generate= function(){
         value= Math.floor(Math.random()*1000000);
 
-        setTimeout(() => {
-            value= 'otp expired';
-        }, 5000);
+        // setTimeout(() => {
+        //     value= 'otp expired';
+        // }, 5000);
         return value
     };
     this.verify=function(inputVal){

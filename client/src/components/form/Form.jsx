@@ -1,64 +1,121 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./Form.scss";
+import { useInputHandleLocal } from "../../hooks/useInputHandle";
+import { InputSecondary } from "../input/Input";
+import axios from "axios";
+import { API } from "../../api";
+import toast from "react-hot-toast";
+import { AuthContext } from "../../contextAPI/AuthContext";
 
 export const Form = () => {
-	const [userExist, setUserExist] = useState(true);
+	const [existingUser, setExistingUser] = useState(true);
 
 	//handling user status
-	const isUserExist = (status) => {
-		setUserExist(status);
+	const handleExistingUser = (status) => {
+		setExistingUser(status);
 	};
 
-	return <div style={{width:'100%'}}>{userExist ? <LoginForm isUserExist={isUserExist} /> : <SignupForm isUserExist={isUserExist} />}</div>;
+	return (
+		<div style={{ width: "100%" }}>
+			{existingUser ? (
+				<LoginForm handleExistingUser={handleExistingUser} />
+			) : (
+				<SignupForm handleExistingUser={handleExistingUser} />
+			)}
+		</div>
+	);
 };
 
-export const LoginForm = ({ isUserExist }) => {
+//=========== Login Form =================
+export const LoginForm = ({ handleExistingUser }) => {
+	const [temp, setTemp] = useState({ email: "", password: "" });
+
+	const { handleChangeLocal } = useInputHandleLocal();
+	const {fetchUser}= useContext(AuthContext);
+
+	const userLogin = async () => {
+		try {
+			const response = await axios(`${API}/api/user/login`, {
+				method: "POST",
+				data: temp,
+			});
+			toast.success('success')
+			fetchUser(response.data);
+		} catch (error) {
+			// console.log(error.response.data.message);
+			toast.error(error.response.data.message,)
+		}
+	};
+
 	return (
 		<div className="form-container">
 			<div className="form">
 				<h4>LOG IN</h4>
 
-				<input placeholder="Email" type="text" className="input email" autoComplete="off" name="email" />
-				<input placeholder="Password" type="password" className="input password" autoComplete="off" name="password" />
+				<InputSecondary
+					placeholder="Email"
+					type="text"
+					name="email"
+					onChange={(event) => {
+						handleChangeLocal(event, setTemp);
+					}}
+				/>
+
+				<InputSecondary
+					placeholder="Password"
+					type="password"
+					name="password"
+					onChange={(event) => {
+						handleChangeLocal(event, setTemp);
+					}}
+				/>
 
 				<p>
 					new user?{" "}
 					<span
 						onClick={() => {
-							isUserExist(false);
+							handleExistingUser(false);
 						}}
 					>
 						Register
 					</span>
 				</p>
-				<button className="confirm">CONFIRM</button>
+				<button className="submit" onClick={userLogin}>
+					SUBMIT
+				</button>
 			</div>
 		</div>
 	);
 };
 
-export const SignupForm = ({ isUserExist }) => {
+//========= Signup Form ==========
+export const SignupForm = ({ handleExistingUser }) => {
+
+
+
+
+
 	return (
 		<div className="form-container">
 			<div className="form">
 				<h4>SIGN UP</h4>
 
-				<input placeholder="Name" type="text" className="input name" autoComplete="off" name="name" />
-				<input placeholder="Email" type="email" className="input email" autoComplete="off" name="email" />
-				<input placeholder="Mobile" type="number" className="input number" autoComplete="off" name="number" />
-				<input placeholder="Password" type="password" className="input password" autoComplete="off" name="password" />
+				<InputSecondary placeholder="Name" type="text" name="name" />
+				<InputSecondary placeholder="Email" type="email" name="email" />
+				<InputSecondary placeholder="Mobile" type="number" name="number" />
+				<InputSecondary placeholder="Password" type="password" name="password" />
 
 				<p>
-					existing user?{" "}
+					existing user?
 					<span
 						onClick={() => {
-							isUserExist(true);
+							handleExistingUser(true);
 						}}
 					>
 						Log In
 					</span>
 				</p>
-				<button className="confirm">CONFIRM</button>
+				<button className="submit">SUBMIT</button>
 			</div>
 		</div>
 	);

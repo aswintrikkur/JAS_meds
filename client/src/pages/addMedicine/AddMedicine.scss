@@ -20,8 +20,10 @@
 	translate: -50% 0;
 	z-index: 4;
 	border-radius: 30px;
-	box-shadow: rgba(122, 122, 122, 0.3) 0px 19px 38px, rgba(122, 122, 122, 0.22) 0px 15px 12px;
+	// box-shadow: rgba(122, 122, 122, 0.3) 0px 19px 38px, rgba(122, 122, 122, 0.22) 0px 15px 12px;
+	box-shadow: -6px 8px 10px 5px #0000007a;
 	background-color: $bg-color-secondary;
+	filter: contrast(120%);
 
 	> h2 {
 		margin-top: 20px;

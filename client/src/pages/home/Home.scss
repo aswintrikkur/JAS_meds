@@ -7,6 +7,20 @@
 	justify-content: center;
 	gap: 30px;
 
+
+	.user{
+
+		align-self: flex-start;
+		padding: 50px 20px;
+		font-size: 28px;
+		font-weight: 500;
+
+		span{
+			text-transform: uppercase;
+			font-weight: 700;		
+		}
+	}
+
 	.title {
 		// margin-top: 50px;
 		width: 100%;
@@ -24,6 +38,8 @@
 			width: 80%;
 			word-break: normal;
 			font-size: 30px;
+			line-height: 45px;
+			word-spacing: 6px;
 
 			position: absolute;
 			top: 50%;
