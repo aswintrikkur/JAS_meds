@@ -2,9 +2,9 @@ const express = require('express');
 const cors = require('cors');
 
 const connectDB = require('./config/db');
-const {userRoute} = require('./routes/userRoute');
+const { userRoute } = require('./routes/userRoute');
+const { customerRoute } = require('./routes/customerRoute');
 const { genericError } = require('./error/errorHandle');
-const {customerRoute} = require('./routes/customerRoute');
 require('dotenv').config();
 
 const app = express();
@@ -14,11 +14,11 @@ app.use(cors());
 
 connectDB();         //create dataBase
 
-
 const port = process.env.PORT || 3000;
 const server = process.env.SERVER_URL || `http://localhost:${port}`
+
 app.listen(port, () => {
-    console.log(`----- server started on  : ${server}`);
+    console.log(`===== server started on  : ${server}`);
 })
 
 
@@ -27,6 +27,7 @@ app.use('/api/user', userRoute)
 app.use('/api/customer', customerRoute);
 
 
+//------ error handling -------
 app.use(genericError)
 
 app.all('*', (req, res) => {
