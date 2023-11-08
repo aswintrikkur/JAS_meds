@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react";
 import "./AddMedicine.scss";
 import { Input } from "../../components/input/Input";
 import { BackButton, BaseButton } from "../../components/button/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "../../components/container/Container";
 import { STATE_NAME } from "../../utils/Utils";
 import { useInputHandle, useInputHandleLocal } from "../../hooks/useInputHandle";
+import axios from "axios";
+import { API } from "../../api";
 
-export const  AddMedicine = () => {
+export const AddMedicine = () => {
 	const [selectOption, setSelectOption] = useState({
 		name: "days",
 		value: "",
@@ -19,10 +21,11 @@ export const  AddMedicine = () => {
 		[selectOption.name]: selectOption.value,
 		dueDate: "",
 	});
-
 	const [medDueDate, setMedDueDate] = useState();
 
 	const navigate = useNavigate();
+	const params = useParams();
+	console.log(params);
 
 	// handling radio button
 	const handleSelect = (event) => {
@@ -70,16 +73,38 @@ export const  AddMedicine = () => {
 		// }, 1500);
 	};
 
+	//===== send to back end ========
+	const postData = async () => {
+		try {
+			// const {days, dailyConsumption , ...data} = tempField;
+			
+			const response = await axios(`${API}/api/customer/details/${params._id}`, {
+				method: "PUT",
+				data: {
+					medicineName: tempField.medicineName,
+					quantity: tempField.quantity,
+					dueDate: tempField.dueDate,
+				}
+			});
+			console.log(response);
+
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<Container>
+
 			<div className="bg-blur-container">{/* a div for Blur Background */}</div>
+			
 			<div className="add-medicine-container">
 				<BackButton onClick={() => navigate(-1)} />
 				<h2>Add Medcine Details</h2>
 				<form>
 					<div className="row1">
 						<Input
-							placeholder="Medicine name"							
+							placeholder="Medicine name"
 							type="text"
 							onChange={(event) => handleChangeLocal(event, setTempField)}
 							value={tempField.medicineName}
@@ -88,7 +113,6 @@ export const  AddMedicine = () => {
 						<Input
 							placeholder="Purchased Quantity"
 							type="number"
-
 							onChange={(event) => handleChangeLocal(event, setTempField)}
 							value={tempField.quantity}
 							name="quantity"
@@ -118,8 +142,7 @@ export const  AddMedicine = () => {
 								<label htmlFor="consumption">Daily Consumption</label>
 							</div>
 						</div>
-						<Input
-							placeholder={selectOption.name}
+						<Input placeholder={selectOption.name}
 							type="number"
 							onChange={(event) => {
 								handleChangeLocal(event, setTempField);
@@ -141,7 +164,7 @@ export const  AddMedicine = () => {
 					<BaseButton
 						text="Add To List"
 						onClick={() => {
-							handleSubmit(tempField), navigate("/newData");
+							handleSubmit(tempField); postData(); navigate("/newData");
 						}}
 					/>
 				</div>

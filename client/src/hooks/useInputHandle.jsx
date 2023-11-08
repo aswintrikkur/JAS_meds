@@ -29,7 +29,6 @@ export const useInputHandle = () => {
 export const useInputHandleLocal = () => {
 	const handleChangeLocal = (event, setState) => {
 
-		console.log('==========================  ', typeof(event.target.value));
 		setState((prev) => ({
 			...prev,
 			[event.target.name]: event.target.value,

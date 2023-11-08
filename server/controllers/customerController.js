@@ -1,3 +1,4 @@
+const { response } = require("express");
 const { handleMissingProps } = require("../error/handleMissingProps");
 const { Customers, MedicineDetails } = require("../models/customerModel");
 // const { Medicines } = require("../models/medicineModel");
@@ -38,6 +39,7 @@ const postCustomerDetails = async (req, res, next) => {
 
         const dbResponse = await Customers.create(temp);
         res.json({
+            _id: dbResponse._id,
             message: 'customer data saved'
         });
     } catch (error) {
@@ -59,7 +61,9 @@ const postMedDetails = async (req, res, next) => {
             //     message: `medicine added to list `
             // });
             
-            const dbResponse = await Customers.findByIdAndUpdate(id, {medList:temp})
+            const dbResponse = await Customers.findByIdAndUpdate(id, {$push :{medList:temp}});
+
+            res.json(response);
          
 
     } catch (error) {

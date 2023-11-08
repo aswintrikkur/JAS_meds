@@ -1,18 +1,22 @@
 import { createContext, useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-	const [user, setUser] = useState(false);
+	//! state,function name is different in different files
+	const [token, setToken] = useState(localStorage.getItem('token') || false);
+	const [user, setUser] = useState( localStorage.getItem('user') || false);
+	
 
-	const fetchUser = (data) => {
-		setUser(data);
-		// setUser('Sonal');
+	const fetchData = (data) => {
+		setToken(data.accessToken);
+		setUser(data.user);
+		localStorage.setItem("token", data.accessToken);
+		localStorage.setItem("user", data.user);
 	};
 
-	// useEffect(() => {
-	// 	fetchUser();
-	// }, []);
 
-	return <AuthContext.Provider value={{ user, fetchUser }}>{children}</AuthContext.Provider>;
+
+	return <AuthContext.Provider value={{ token,  user, setToken, setUser, fetchData }}>{children}</AuthContext.Provider>;
 };

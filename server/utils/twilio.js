@@ -47,17 +47,5 @@ function OTP() {
 }
 
 
-// const generateOTP = () => {
-//     let otp = Math.floor(Math.random() * 1000000)
-//     return otp
-
-//     //TODO: otp timeout
-//     // setTimeout(() => {
-//     //    otp = 0
-//     // }, 3000);
-//     // console.log('inside function',otp);
-
-// }
-
 
 module.exports = { sendOtpToAdmin , OTP }

@@ -14,7 +14,7 @@ router.get('/details/:id', getCustomerDetails);
 router.post('/details', postCustomerDetails);
 
 // add individual customer's medDetails
-router.put('/medDetails/:id', postMedDetails);
+router.put('/details/:id', postMedDetails);
 
 
 module.exports = { customerRoute: router };

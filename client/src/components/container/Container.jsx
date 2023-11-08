@@ -6,7 +6,6 @@ import  {  Toaster } from "react-hot-toast";
 export const Container = ({ children }) => {
 	return (
 		<div className="container">
-			<Toaster    />
 
 			<Header />
 			{children}

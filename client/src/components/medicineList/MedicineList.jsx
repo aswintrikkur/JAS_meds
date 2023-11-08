@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./MedicineList.scss";
 import { BaseButton } from "../button/Button";
 import { CardContainer } from "../container/Container";
 import { useInputHandle } from "../../hooks/useInputHandle";
 import toast, {Toaster} from 'react-hot-toast'
+import { NewDataContext } from "../../contextAPI/NewDataContext";
 
 export const MedicineList = () => {
 	const [file, setFile] = useState({
@@ -29,9 +30,13 @@ export const MedicineList = () => {
 	// Fetching Data from CONTEXTAPI using custom HOOK
 	const { customerDetails, listOfMeds } = useInputHandle();
 
+	const {setCustomerDetails} =  useContext(NewDataContext);
+
 	// * Data Final Submit Handlilng
 	const handleSubmitData=(event)=>{
 		toast.success('Data submitted');
+
+		setCustomerDetails({});
 	}
 
 	return (
@@ -46,7 +51,7 @@ export const MedicineList = () => {
 						{/* //* LIST OF MEDS */}
 						<ul>
 							{listOfMeds.map((data, index) => (
-								<div className="med-list" key={data.customerId}>
+								<div className="med-list" key={index}>
 									<li>{data.medicineName}</li>
 									<p>{data.dueDate && data.dueDate.toDateString()}</p>
 								</div>

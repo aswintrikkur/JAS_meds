@@ -5,6 +5,8 @@ import { createContext, useState } from "react";
 export const NewDataContext = createContext();
 
 export const NewDataProvider = ({ children }) => {
+	const [id,setId]=useState();
+
 	const [customerDetails, setCustomerDetails] = useState({
 		customerId: "",
 		customerName: "",
@@ -18,7 +20,7 @@ export const NewDataProvider = ({ children }) => {
 	const [listOfMeds, setListOfMeds] = useState([]);
 
 	return (
-		<NewDataContext.Provider value={{ customerDetails, setCustomerDetails, listOfMeds, setListOfMeds }}>
+		<NewDataContext.Provider value={{id,setId, customerDetails, setCustomerDetails, listOfMeds, setListOfMeds }}>
 			{children}
 		</NewDataContext.Provider>
 	);

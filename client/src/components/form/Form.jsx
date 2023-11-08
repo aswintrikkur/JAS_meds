@@ -4,7 +4,7 @@ import { useInputHandleLocal } from "../../hooks/useInputHandle";
 import { InputSecondary } from "../input/Input";
 import axios from "axios";
 import { API } from "../../api";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { AuthContext } from "../../contextAPI/AuthContext";
 
 export const Form = () => {
@@ -31,7 +31,7 @@ export const LoginForm = ({ handleExistingUser }) => {
 	const [temp, setTemp] = useState({ email: "", password: "" });
 
 	const { handleChangeLocal } = useInputHandleLocal();
-	const {fetchUser}= useContext(AuthContext);
+	const {fetchData}= useContext(AuthContext);
 
 	const userLogin = async () => {
 		try {
@@ -40,7 +40,9 @@ export const LoginForm = ({ handleExistingUser }) => {
 				data: temp,
 			});
 			toast.success('success')
-			fetchUser(response.data);
+			console.log(response);
+			fetchData(response.data);
+
 		} catch (error) {
 			// console.log(error.response.data.message);
 			toast.error(error.response.data.message || 'something went wrong')
@@ -50,6 +52,8 @@ export const LoginForm = ({ handleExistingUser }) => {
 	return (
 		<div className="form-container">
 			<div className="form">
+			<Toaster     />
+
 				<h4>LOG IN</h4>
 
 				<InputSecondary

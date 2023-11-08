@@ -1,7 +1,7 @@
 const { Users } = require("../models/userModel");
 const { generatePasswordHash, comparePasswordHash } = require("../utils/bcrypt");
 const { handleMissingProps } = require("../error/handleMissingProps");
-const { generateAccessToken } = require("../utils/jwt");
+const { generateAccessToken, verifyAccessToken } = require("../utils/jwt");
 const { sendOtpToAdmin, OTP } = require("../utils/twilio");
 
 
@@ -17,8 +17,8 @@ const signup = async (req, res, next) => {
         tempUser = { username, email, mobile, password }
 
         //handle missing props in req.body
-        const response = handleMissingProps(tempUser, res);
-        if (response === true) return;
+        const missing = handleMissingProps(tempUser, res);
+        if (missing === true) return;
 
 
         const isExist = await Users.findOne({ email });
@@ -82,8 +82,8 @@ const login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
         //handle missing props in req.body
-        const response = handleMissingProps({ email, password }, res);
-        if (response) return;
+        const missing = handleMissingProps({ email, password }, res);
+        if (missing) return;
 
         const userData = await Users.findOne({ email });
         if (!userData) {
@@ -94,23 +94,49 @@ const login = async (req, res, next) => {
 
         //compare password
         const isPasswordValid = await comparePasswordHash(password, userData.password)
-        if (!isPasswordValid) {
-            return res.status(400).json({
-                message: 'invalid email or password'
-            });
+        if (isPasswordValid) {
+
+            // return res.json(userData.essentials);
+            // //generate accesstoken and send to client  
+            const accessToken = generateAccessToken(userData._id);
+            return res.status(200).json({ user: userData.essentials, accessToken });
         }
 
-        res.json(userData)
-
-        //generate accesstoken and send to client  
-        const accessToken = generateAccessToken(userData._id);
-        res.json({ accessToken });
+        return res.status(400).json({
+            message: 'invalid email or password'
+        });
 
     } catch (error) {
         next(error);
 
     }
 }
+
+
+
+//=========== verify token ===============
+const verifyToken = async (req, res, next) => {
+    try {
+
+        const { token } = req.params;
+        const validToken = verifyAccessToken(token);
+        res.json({
+            message: 'success'
+        })
+
+    } catch (error) {
+
+        next(error)
+    }
+
+}
+
+
+
+
+
+
+
 
 
 
@@ -133,4 +159,4 @@ const home = async (req, res, next) => {
 
 
 
-module.exports = { signup , signupVerify, login, home }
+module.exports = { signup, signupVerify, login, verifyToken, home }

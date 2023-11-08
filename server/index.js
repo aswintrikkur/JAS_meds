@@ -5,6 +5,8 @@ const connectDB = require('./config/db');
 const { userRoute } = require('./routes/userRoute');
 const { customerRoute } = require('./routes/customerRoute');
 const { genericError } = require('./error/errorHandle');
+const { historyRouter } = require('./routes/historyRoute');
+const { checkAuth } = require('./middlewares/checkAuth');
 require('dotenv').config();
 
 const app = express();
@@ -25,6 +27,7 @@ app.listen(port, () => {
 // -----------routes-------------
 app.use('/api/user', userRoute)
 app.use('/api/customer', customerRoute);
+app.use('/api/history',checkAuth, historyRouter)
 
 
 //------ error handling -------

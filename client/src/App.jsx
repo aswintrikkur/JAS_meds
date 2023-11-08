@@ -14,7 +14,7 @@ function App() {
 				
 				<Route element={<ProtectedRoute />}>
 					<Route path="/newData" element={<NewData />} />
-					<Route path="/addMed" element={<AddMedicine />} />
+					<Route path="/addMed/:_id" element={<AddMedicine />} />
 					<Route path="/history" element={<History/>} />
 				</Route>
 

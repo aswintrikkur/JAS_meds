@@ -5,10 +5,11 @@ import { BackButton, BaseButton } from "../../components/button/Button";
 import { Input } from "../../components/input/Input";
 import { MedicineList } from "../../components/medicineList/MedicineList";
 import { useNavigate } from "react-router-dom";
-import { STATE_NAME } from "../../utils/Utils";
 import { useInputHandle, useInputHandleLocal } from "../../hooks/useInputHandle";
 import { NewDataContext } from "../../contextAPI/NewDataContext";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+import { API } from "../../api";
 // import { NewDataContext, useInputHandle } from "../../contextAPI/NewDataContext";
 
 export const NewData = () => {
@@ -26,28 +27,45 @@ export const NewData = () => {
 
 	// input handle Loacally for onChange events
 	const { handleChangeLocal } = useInputHandleLocal();
-	console.log("customer details TEMP:", tempField);
+	// console.log("customer details TEMP:", tempField);
 
 	useEffect(() => {
 		setTempField(customerDetails);
 	}, []);
 
-	const { setCustomerDetails } = useContext(NewDataContext); //Context API using for updating customerDetails
+	const {id, setId, setCustomerDetails } = useContext(NewDataContext); //Context API using for updating customerDetails
 	// save customer details to the context api
-	const handleSave = (event, customerData) => {
+	const handleSave = async() => {
 		// event.preventDefault();
-		setCustomerDetails(customerData);
+
+		try {
+			setCustomerDetails(tempField);
+			const {listOfMeds, ...data} = tempField;
+			const response = await axios(`${API}/api/customer/details`,{
+				method: 'POST',
+				data
+			});
+			setId(response.data._id);
+			toast.success(response.data.message);
+			
+		} catch (error) {
+			toast.error(error.response.data.message);
+			// console.log(error.response.data);
+		}
+
 	};
 
 	// Fetching data from ContextApi using Hooks.
 	const { customerDetails, listOfMeds } = useInputHandle();
-	console.log("Customer Details:", customerDetails);
+	// console.log("Customer Details:", customerDetails);
 	// console.log("UpdatedList of Meds:", listOfMeds);
+
+
 
 	return (
 		<Container>
 			<div>
-				<Toaster />{" "}
+				<Toaster />
 			</div>
 			<div className="new-data-container">
 				<div className="customer-details">
@@ -56,7 +74,7 @@ export const NewData = () => {
 							placeholder="Customer ID"
 							type="number"
 							// onChange={(event) => handleChange(event, STATE_NAME.CUSTOMER_DETAILS)}
-							onChange={(event) => handleChangeLocal(event, setTempField)}
+							onChange={(event) => {handleChangeLocal(event, setTempField); }}
 							value={tempField.customerId}
 							name="customerId"
 							required="required"
@@ -117,13 +135,13 @@ export const NewData = () => {
 							required="required"
 						/>
 						{/* //TODO: create validation onClick */}
-						<button className="save-customer-details" onClick={(event) => handleSave(event, tempField)}>
+						<button className="save-customer-details" onClick={() => handleSave()}>
 							save
 						</button>
 					</div>
 				</div>
 				<div className="medicine-details">
-					<BaseButton text="ADD Medicine" bgc="#144D5F" color="#ffff" onClick={() => navigate("/addMed")} />
+					<BaseButton text="ADD Medicine" bgc="#144D5F" color="#ffff" onClick={() => navigate(`/addMed/${id}`)} />
 					<MedicineList />
 				</div>
 			</div>
