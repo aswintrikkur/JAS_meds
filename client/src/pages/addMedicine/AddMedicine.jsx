@@ -4,10 +4,8 @@ import { Input } from "../../components/input/Input";
 import { BackButton, BaseButton } from "../../components/button/Button";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container } from "../../components/container/Container";
-import { STATE_NAME } from "../../utils/Utils";
-import { useInputHandle, useInputHandleLocal } from "../../hooks/useInputHandle";
-import axios from "axios";
-import { API } from "../../api";
+import { useInputHandleLocal } from "../../hooks/useInputHandle";
+import { useCustomer } from "../../hooks/useCustomer";
 
 export const AddMedicine = () => {
 	const [selectOption, setSelectOption] = useState({
@@ -30,7 +28,7 @@ export const AddMedicine = () => {
 	// handling radio button
 	const handleSelect = (event) => {
 		if (event?.target.name == "select-option") {
-			console.log("handle select value type", typeOf(event.target.value));
+			// console.log("handle select value type", typeOf(event.target.value));
 			setSelectOption((prev) => ({
 				...prev,
 				name: event.target.value,
@@ -39,15 +37,10 @@ export const AddMedicine = () => {
 		findMedDueDate(); //! BUG: Due date not updating when radio button changes after filling the field.
 	};
 
-	// console.log("selected", selectOption);
-	console.log("TempFields:", tempField);
-	// console.log("medDueDate:", medDueDate);
+	//================= custome HOOKs ===========
+	const { customerDetails, addMedToList } = useCustomer(); //* important
+	const { handleChangeLocal } = useInputHandleLocal(); // Input handling for local state
 
-	// Input handling for local state
-	const { handleChangeLocal } = useInputHandleLocal();
-
-	// Input handling using Custom HOOK and fetching Data from CONTEXTAPI
-	const { handleChange, customerDetails, handleSubmit } = useInputHandle();
 
 	//! To find due date
 	const findMedDueDate = (event) => {
@@ -73,31 +66,10 @@ export const AddMedicine = () => {
 		// }, 1500);
 	};
 
-	//===== send to back end ========
-	const postData = async () => {
-		try {
-			// const {days, dailyConsumption , ...data} = tempField;
-			
-			const response = await axios(`${API}/api/customer/details/${params._id}`, {
-				method: "PUT",
-				data: {
-					medicineName: tempField.medicineName,
-					quantity: tempField.quantity,
-					dueDate: tempField.dueDate,
-				}
-			});
-			console.log(response);
-
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	return (
 		<Container>
-
 			<div className="bg-blur-container">{/* a div for Blur Background */}</div>
-			
+
 			<div className="add-medicine-container">
 				<BackButton onClick={() => navigate(-1)} />
 				<h2>Add Medcine Details</h2>
@@ -142,7 +114,8 @@ export const AddMedicine = () => {
 								<label htmlFor="consumption">Daily Consumption</label>
 							</div>
 						</div>
-						<Input placeholder={selectOption.name}
+						<Input
+							placeholder={selectOption.name}
 							type="number"
 							onChange={(event) => {
 								handleChangeLocal(event, setTempField);
@@ -164,7 +137,8 @@ export const AddMedicine = () => {
 					<BaseButton
 						text="Add To List"
 						onClick={() => {
-							handleSubmit(tempField); postData(); navigate("/newData");
+							addMedToList(tempField);
+							navigate("/customer");
 						}}
 					/>
 				</div>

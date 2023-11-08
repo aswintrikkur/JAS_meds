@@ -37,6 +37,11 @@ const postCustomerDetails = async (req, res, next) => {
         const missing = handleMissingProps(temp, res);
         if (missing) return;
 
+        const isIdExist = await Customers.find({customerId})
+        if(isIdExist.length!==0){
+         throw Error('customer id already exist')
+        }
+
         const dbResponse = await Customers.create(temp);
         res.json({
             _id: dbResponse._id,
@@ -51,17 +56,20 @@ const postCustomerDetails = async (req, res, next) => {
 const postMedDetails = async (req, res, next) => {
     try {
         const {id}=req.params;
-        const { medicineName, quantity, dueDate } = req.body;
-        const temp = { medicineName, quantity, dueDate };
-        const missing = handleMissingProps(temp, res);
-        if (missing) return;
+        console.log(req.body);
+        // const { medicineName, quantity, dueDate } = req.body;
+        // const temp = { medicineName, quantity, dueDate };
+        // const missing = handleMissingProps(temp, res);
+        // if (missing) return;
 
         // const dbResponse = await MedicineDetails.create(temp);
         // res.json({
             //     message: `medicine added to list `
             // });
+
             
-            const dbResponse = await Customers.findByIdAndUpdate(id, {$push :{medList:temp}});
+            // const dbResponse = await Customers.findByIdAndUpdate(id, {$push :{medList:temp}});
+            const dbResponse = await Customers.findByIdAndUpdate(id, {medList:req.body});
 
             res.json(response);
          

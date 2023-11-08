@@ -2,9 +2,9 @@ import { createContext, useState } from "react";
 
 // ! ----------- CONTEXT ----------------
 // * --------- State Management for ['NewData.jsx','AddMedicine.jsx','MedicineList.jsx'] ----------------
-export const NewDataContext = createContext();
+export const CustomerContext = createContext();
 
-export const NewDataProvider = ({ children }) => {
+export const CustomerProvider = ({ children }) => {
 	const [id,setId]=useState();
 
 	const [customerDetails, setCustomerDetails] = useState({
@@ -20,8 +20,8 @@ export const NewDataProvider = ({ children }) => {
 	const [listOfMeds, setListOfMeds] = useState([]);
 
 	return (
-		<NewDataContext.Provider value={{id,setId, customerDetails, setCustomerDetails, listOfMeds, setListOfMeds }}>
+		<CustomerContext.Provider value={{id,setId, customerDetails, setCustomerDetails, listOfMeds, setListOfMeds }}>
 			{children}
-		</NewDataContext.Provider>
+		</CustomerContext.Provider>
 	);
 };

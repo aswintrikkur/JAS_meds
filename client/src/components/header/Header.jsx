@@ -36,7 +36,7 @@ export const Header = () => {
 				</li>
 				<li
 					onClick={() => {
-						navigate("/newData");
+						navigate("/customer");
 					}}
 				>
 					Customer

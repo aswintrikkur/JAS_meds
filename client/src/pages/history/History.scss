@@ -1,13 +1,26 @@
 @import "../../index.scss";
 
 .history-container {
-	position: relative;
+	// position: relative;
+	// z-index: 2;
+    padding: 0 10px;
 
-	z-index: 2;
+	.sort {
+
+        
+        margin: 15px 0px;
+        // width: 100px;
+        
+        select{
+            // width: fit-content
+
+        }
+	}
+
 	table {
-		margin: 0 10px;
+		// margin: 0 10px;
 
-		width: 95%;
+		width: 100%;
 		// text-align: start;
 	}
 	table,
@@ -16,9 +29,11 @@
 		border: 1px solid black;
 		text-align: start;
 	}
-	th,
+	th{
+        padding: 10px;
+    }
 	td {
-		padding: 0 5px;
+		padding:  5px;
 	}
 
 	.bg-blur-container {
@@ -26,6 +41,7 @@
 		width: 100%;
 		height: 100%;
 		top: 0;
+		left: 0;
 		// filter: blur(3px);
 		backdrop-filter: blur(6px);
 		z-index: 3;
@@ -33,8 +49,9 @@
 	.individual {
 		text-align: start;
 		width: 92%;
-		min-height: 70%;
-		padding: 30px 15px;
+		// min-height: 70%;
+		padding: 30px 10px;
+		padding-bottom:50px;
 		position: absolute;
 		top: 150px;
 		left: 50%;
@@ -66,15 +83,13 @@
 				width: 100px;
 				// background-color: gray;
 
-				h4{
-
-                    
-                    &::after {
-                        content: ":";
-                        float: right;
-                        margin-right: 10px;
-                    }
-                }
+				h4 {
+					&::after {
+						content: ":";
+						float: right;
+						margin-right: 10px;
+					}
+				}
 			}
 			.col2 {
 			}

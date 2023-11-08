@@ -8,6 +8,8 @@ export const History = () => {
 	const [data, setData] = useState();
 	const [individual, setIndividual] = useState();
 
+
+	//====== fetch Data ========
 	const fetchHistory = async () => {
 		try {
 			const response = await axios(`${API}/api/history`, {
@@ -23,6 +25,7 @@ export const History = () => {
 		}
 	};
 
+	// ===== onclick of individual item =========
 	const showDetails = async (event, key) => {
 		const response = data.find((item) => item._id === key);
 		setIndividual(response);
@@ -50,15 +53,16 @@ export const History = () => {
 		fetchHistory();
 	}, []);
 
+
 	return (
 		<Container>
 			<div className="history-container">
 				<h2>History</h2>
 
 				<div className="sort">
-					<select name="sort" id="sort" onChange={handleSortData} style={{ width: "100px" }}>
+					<select name="sort" id="sort" onChange={handleSortData} >
 						<option value="sort">sort</option>
-						<option value="id">Customer Id</option>
+						<option value="id">ID</option>
 						<option value="dueDate">Due Date</option>
 						<option value="date">Date</option>
 					</select>
@@ -85,7 +89,7 @@ export const History = () => {
 								>
 									<td> {item.customerId} </td>
 									<td> {item.customerName} </td>
-									<td> {item.medList[0]?.dueDate.slice(0, 10)} </td>
+									<td> {item?.medList[0]?.dueDate?.slice(0, 10)} </td>
 								</tr>
 							);
 						})}
@@ -101,38 +105,25 @@ export const History = () => {
 							</button>
 							<h2> customer details</h2>
 							<h4 style={{ textAlign: "end" }}>{individual?.date}</h4>
-			
-			<div className="details">
-			<div className="col1">
-								<h4>ID</h4>
-								<h4>Name</h4>
-								<h4>Address</h4>
-								<h4>Doctor</h4>
-								<h4>Staff</h4>
+
+							<div className="details">
+								<div className="col1">
+									<h4>ID</h4>
+									<h4>Name</h4>
+									<h4>Address</h4>
+									<h4>Doctor</h4>
+									<h4>Staff</h4>
+								</div>
+								<div className="col2">
+									<h4>{individual?.customerId}</h4>
+									<h4>{individual?.customerName}</h4>
+									<h4>{individual?.address}</h4>
+									<h4>{individual?.doctorName}</h4>
+									<h4> {individual?.staffName}</h4>
+								</div>
 							</div>
-							<div className="col2">
-								<h4>{individual?.customerId}</h4>
-								<h4>{individual?.customerName}</h4>
-								<h4>{individual?.address}</h4>
-								<h4>{individual?.doctorName}</h4>
-								<h4> staff : {individual?.staffName}</h4>
-							</div>
-			</div>
 
 							<br />
-							{/* <h4>
-								customer Id : <span> {individual?.customerId}</span>{" "}
-							</h4>
-							<h4>
-								{" "}
-								Name : <span>{individual?.customerName}</span>{" "}
-							</h4>
-							<h4> Address : {individual?.address}</h4>
-							<h4> Mobile : {individual?.mobile}</h4>
-							<h4> Doctor : {individual?.doctorName}</h4>
-							<h4> staff : {individual?.staffName}</h4>
-
-							<br /> */}
 							<table>
 								<thead>
 									<tr>
@@ -145,7 +136,7 @@ export const History = () => {
 										return (
 											<tr key={val._id}>
 												<td>{val.medicineName}</td>
-												<td>{val.dueDate.slice(0, 10)}</td>
+												<td>{val?.dueDate?.slice(0, 10)}</td>
 											</tr>
 										);
 									})}

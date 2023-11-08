@@ -3,15 +3,15 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "./index.scss";
 import { BrowserRouter } from "react-router-dom";
-import { NewDataProvider } from "./contextAPI/NewDataContext.jsx";
+import { CustomerProvider } from "./contextAPI/CustomerContext.jsx";
 import { AuthProvider } from "./contextAPI/AuthContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<AuthProvider>
-		<NewDataProvider>
+		<CustomerProvider>
 			<BrowserRouter>
 				<App />
 			</BrowserRouter>
-		</NewDataProvider>
+		</CustomerProvider>
 	</AuthProvider>
 );

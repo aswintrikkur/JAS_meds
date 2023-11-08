@@ -2,9 +2,7 @@ import React, { useContext, useState } from "react";
 import "./MedicineList.scss";
 import { BaseButton } from "../button/Button";
 import { CardContainer } from "../container/Container";
-import { useInputHandle } from "../../hooks/useInputHandle";
-import toast, {Toaster} from 'react-hot-toast'
-import { NewDataContext } from "../../contextAPI/NewDataContext";
+import { useCustomer } from "../../hooks/useCustomer";
 
 export const MedicineList = () => {
 	const [file, setFile] = useState({
@@ -27,17 +25,11 @@ export const MedicineList = () => {
 		// }
 	};
 
-	// Fetching Data from CONTEXTAPI using custom HOOK
-	const { customerDetails, listOfMeds } = useInputHandle();
 
-	const {setCustomerDetails} =  useContext(NewDataContext);
 
-	// * Data Final Submit Handlilng
-	const handleSubmitData=(event)=>{
-		toast.success('Data submitted');
 
-		setCustomerDetails({});
-	}
+//====== Custom HOOKS =========
+	const {listOfMeds , submitCustomer}=useCustomer();
 
 	return (
 		<CardContainer>
@@ -50,7 +42,7 @@ export const MedicineList = () => {
 					<div className="medicine-list-container">
 						{/* //* LIST OF MEDS */}
 						<ul>
-							{listOfMeds.map((data, index) => (
+							{listOfMeds?.map((data, index) => (
 								<div className="med-list" key={index}>
 									<li>{data.medicineName}</li>
 									<p>{data.dueDate && data.dueDate.toDateString()}</p>
@@ -88,7 +80,7 @@ export const MedicineList = () => {
 					</div>
 					<div className="submit-btn">
 						{/* //TODO: validation onSubmit */}
-						<BaseButton text="SUBMIT"  onClick={handleSubmitData}/>
+						<BaseButton text="SUBMIT"  onClick={submitCustomer}/>
 					</div>
 				</div>
 			)}
