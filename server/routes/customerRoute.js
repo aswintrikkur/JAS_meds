@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getCustomerDetails, postCustomerDetails, postMedDetails, getCustomers }
     = require('../controllers/customerController');
+const { upload } = require('../middlewares/multer');
 
 
 // get all customer's details

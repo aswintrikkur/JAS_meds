@@ -23,7 +23,6 @@ export const AddMedicine = () => {
 
 	const navigate = useNavigate();
 	const params = useParams();
-	console.log(params);
 
 	// handling radio button
 	const handleSelect = (event) => {

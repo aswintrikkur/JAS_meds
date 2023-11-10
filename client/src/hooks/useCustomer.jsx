@@ -3,10 +3,14 @@ import { CustomerContext } from "../contextAPI/CustomerContext";
 import toast from "react-hot-toast";
 import { API } from "../api";
 import axios from "axios";
+import { useHandleUser } from "./useHandleUser";
 
 export const useCustomer = () => {
 	// ============= context api ============
 	const { id, setId, customerDetails, setCustomerDetails, listOfMeds, setListOfMeds } = useContext(CustomerContext);
+
+	//============ Hooks ================
+	const { userLogOut } = useHandleUser();
 
 	const handleInput = (event) => {
 		setCustomerDetails((prev) => ({
@@ -17,16 +21,21 @@ export const useCustomer = () => {
 
 	//======== save customer Details =============
 	const saveCustomer = async () => {
-		console.log(customerDetails);
 		try {
-			const { listOfMeds, ...data } = customerDetails;
+			const { medDetails, ...data } = customerDetails;
 			const response = await axios(`${API}/api/customer/details`, {
 				method: "POST",
+				headers: {
+					Authorization: localStorage.getItem("token"),
+				},
 				data,
 			});
 			setId(response.data._id);
 			toast.success(response.data.message);
 		} catch (error) {
+			if (error.response.data.message == "jwt expired") {
+				userLogOut();
+			}
 			toast.error(error.response.data.message);
 		}
 	};
@@ -37,7 +46,10 @@ export const useCustomer = () => {
 
 		setCustomerDetails((prev) => {
 			const newData = { ...prev };
-			newData.listOfMeds?.push(data);
+
+			//* check and initialise listOfMeds before performing operations on it...
+			// newData.medDetails.medList = newData.medDetails.medList || [];
+			newData.medDetails.medList.push(data);
 			return newData;
 		});
 	};
@@ -45,19 +57,30 @@ export const useCustomer = () => {
 	//====== submit =========
 	const submitCustomer = async () => {
 		try {
-
+			console.log(customerDetails.medDetails	,"=======medDetails");
 			const response = await axios(`${API}/api/customer/details/${id}`, {
 				method: "PUT",
-				data: customerDetails.listOfMeds, //unwanted properties also passing
+				headers: {
+					// Accept:"application/json",  //for sending json
+					// "Content-Type": "multipart/form-data",  //form sending File
+					Authorization: localStorage.getItem("token"),
+				},
+				data: customerDetails.medDetails //unwanted properties also passing
 			});
-			console.log(response);
+
 			toast.success("Data submitted");
-			setCustomerDetails({});
+			setCustomerDetails({
+				medDetails: {
+					medList: [],
+					nrxDrugs: "",
+					img: {},
+				},
+			});
 			setListOfMeds([]);
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
-	return { id, customerDetails, listOfMeds, handleInput, saveCustomer, addMedToList, submitCustomer };
+	return { id, customerDetails, setCustomerDetails, listOfMeds, handleInput, saveCustomer, addMedToList, submitCustomer };
 };

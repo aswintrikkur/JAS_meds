@@ -11,7 +11,7 @@ export const Home = () => {
 	return (
 		<Container>
 			<div className="home-container">
-				{user && <h2 className="user">welcome <span>{user.username}</span> </h2>}
+				{user && <h2 className="user">welcome <span>{user}</span> </h2>}
 				
 				<div className="title">
 					<img src="/images/JAS_gradient.png" alt="" />

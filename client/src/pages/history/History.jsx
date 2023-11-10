@@ -7,7 +7,7 @@ import { API } from "../../api";
 export const History = () => {
 	const [data, setData] = useState();
 	const [individual, setIndividual] = useState();
-
+	const [show, setShow] = useState(false);
 
 	//====== fetch Data ========
 	const fetchHistory = async () => {
@@ -15,10 +15,10 @@ export const History = () => {
 			const response = await axios(`${API}/api/history`, {
 				method: "GET",
 				headers: {
-					Authorization: localStorage.getItem("token"),
+					Authorization: localStorage.getItem("token"), //todo: implement interceptors for sending token
 				},
 			});
-			setData(response.data);
+			setData(response.data.customers);
 			// console.log(response);
 		} catch (error) {
 			console.log(error);
@@ -29,7 +29,7 @@ export const History = () => {
 	const showDetails = async (event, key) => {
 		const response = data.find((item) => item._id === key);
 		setIndividual(response);
-		console.log(individual);
+		// console.log(individual);
 	};
 
 	//======= sorting ===============
@@ -44,6 +44,7 @@ export const History = () => {
 			sortedData.sort((a, b) => (a.date > b.date ? 1 : -1));
 			setData(sortedData);
 		} else if (value === "dueDate") {
+			//! not sorting properly in first run.
 			sortedData.sort((a, b) => (a.medList[0]?.dueDate < b.medList[0]?.dueDate ? 1 : -1));
 			setData(sortedData);
 		}
@@ -53,14 +54,13 @@ export const History = () => {
 		fetchHistory();
 	}, []);
 
-
 	return (
 		<Container>
 			<div className="history-container">
 				<h2>History</h2>
 
 				<div className="sort">
-					<select name="sort" id="sort" onChange={handleSortData} >
+					<select name="sort" id="sort" onChange={handleSortData}>
 						<option value="sort">sort</option>
 						<option value="id">ID</option>
 						<option value="dueDate">Due Date</option>
@@ -89,7 +89,7 @@ export const History = () => {
 								>
 									<td> {item.customerId} </td>
 									<td> {item.customerName} </td>
-									<td> {item?.medList[0]?.dueDate?.slice(0, 10)} </td>
+									<td> {item?.medDetails.medList[0]?.dueDate?.slice(0, 10)} </td>
 								</tr>
 							);
 						})}
@@ -124,6 +124,14 @@ export const History = () => {
 							</div>
 
 							<br />
+							<h4>
+								nrxDrugs: <span style={{ color: "red" }}>{individual.medDetails?.nrxDrugs}</span>
+							</h4>
+							<h4>
+								Comments: <span style={{ color: "red" }}>{individual.medDetails?.comments}</span>
+							</h4>
+							<br />
+
 							<table>
 								<thead>
 									<tr>
@@ -132,7 +140,7 @@ export const History = () => {
 									</tr>
 								</thead>
 								<tbody>
-									{individual?.medList?.map((val) => {
+									{individual?.medDetails?.medList?.map((val) => {
 										return (
 											<tr key={val._id}>
 												<td>{val.medicineName}</td>
@@ -142,6 +150,17 @@ export const History = () => {
 									})}
 								</tbody>
 							</table>
+							<div className="img">
+								<button
+									className="toggle"
+									onClick={() => {
+										setShow((prev) => !prev);
+									}}
+								>
+									prescription
+								</button>
+								{show && <img src={individual.medDetails.img} alt="prescription" className="prescription" />}
+							</div>
 						</div>
 					</>
 				)}

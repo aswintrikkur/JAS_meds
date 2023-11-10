@@ -5,7 +5,7 @@ import { createContext, useState } from "react";
 export const CustomerContext = createContext();
 
 export const CustomerProvider = ({ children }) => {
-	const [id,setId]=useState();
+	const [id, setId] = useState();
 
 	const [customerDetails, setCustomerDetails] = useState({
 		customerId: "",
@@ -14,13 +14,18 @@ export const CustomerProvider = ({ children }) => {
 		mobile: "",
 		date: "",
 		doctorName: "",
-		staffName: '',
-		listOfMeds: [],
+		staffName: "",
+		medDetails: {
+			medList: [],
+			nrxDrugs: '',
+			img: {},
+			comments: '',
+		},
 	});
 	const [listOfMeds, setListOfMeds] = useState([]);
 
 	return (
-		<CustomerContext.Provider value={{id,setId, customerDetails, setCustomerDetails, listOfMeds, setListOfMeds }}>
+		<CustomerContext.Provider value={{ id, setId, customerDetails, setCustomerDetails, listOfMeds, setListOfMeds }}>
 			{children}
 		</CustomerContext.Provider>
 	);

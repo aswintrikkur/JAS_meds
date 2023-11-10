@@ -1,13 +1,14 @@
 const { response } = require("express");
 const { handleMissingProps } = require("../error/handleMissingProps");
 const { Customers, MedicineDetails } = require("../models/customerModel");
+const { Users } = require("../models/userModel");
 // const { Medicines } = require("../models/medicineModel");
 
 
 // get all customers details
 const getCustomers=async (req,res,next)=>{
     try {
-        const customer= await Customers.find();
+        const customer= await Customers.find(); //todo: Send specific user's customer list, not all
         res.json({customer})
 
     } catch (error) {
@@ -37,14 +38,18 @@ const postCustomerDetails = async (req, res, next) => {
         const missing = handleMissingProps(temp, res);
         if (missing) return;
 
-        const isIdExist = await Customers.find({customerId})
-        if(isIdExist.length!==0){
+        const isIdExist = await Customers.findOne({customerId})
+        if(isIdExist){
          throw Error('customer id already exist')
         }
+        
 
-        const dbResponse = await Customers.create(temp);
+        const customersRes = await Customers.create(temp);
+        const usersRes = await Users.findByIdAndUpdate(req.userId,{
+            $push:{ customers: customersRes._id }
+        })
         res.json({
-            _id: dbResponse._id,
+            _id: customersRes._id,
             message: 'customer data saved'
         });
     } catch (error) {
@@ -56,7 +61,16 @@ const postCustomerDetails = async (req, res, next) => {
 const postMedDetails = async (req, res, next) => {
     try {
         const {id}=req.params;
+
+        // let data = req.body;
+
+        console.log(req.file);
+        // console.log(req.file.filename,'=====filename');
+
+
         console.log(req.body);
+
+        // console.log(req.body);
         // const { medicineName, quantity, dueDate } = req.body;
         // const temp = { medicineName, quantity, dueDate };
         // const missing = handleMissingProps(temp, res);
@@ -69,9 +83,13 @@ const postMedDetails = async (req, res, next) => {
 
             
             // const dbResponse = await Customers.findByIdAndUpdate(id, {$push :{medList:temp}});
-            const dbResponse = await Customers.findByIdAndUpdate(id, {medList:req.body});
+            // const cusRes = await Customers.findByIdAndUpdate(id, {medList:req.body});
 
-            res.json(response);
+            const cusRes = await Customers.findByIdAndUpdate(id, {medDetails:req.body});
+
+            res.json({
+                message: 'success'
+            });
          
 
     } catch (error) {

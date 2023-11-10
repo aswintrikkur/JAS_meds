@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true, require: true },
     mobile: { type: Number, unique: true, require: true },
     password: { type: String, unique: true, require: true },
+    customers:[{
+        type: mongoose.Schema.Types.ObjectId ,
+        ref: 'Customers'
+    }]
 })
 
 userSchema.virtual('essentials').get(function () {

@@ -40,11 +40,9 @@ export const LoginForm = ({ handleExistingUser }) => {
 				data: temp,
 			});
 			toast.success('success')
-			console.log(response);
 			fetchData(response.data);
 
 		} catch (error) {
-			// console.log(error.response.data.message);
 			toast.error(error.response.data.message || 'something went wrong')
 		}
 	};

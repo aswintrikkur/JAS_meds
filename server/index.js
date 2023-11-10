@@ -12,7 +12,7 @@ require('dotenv').config();
 const app = express();
 app.use(express.json());
 app.use(cors());
-
+app.use(express.static('public'));
 
 connectDB();         //create dataBase
 
@@ -24,9 +24,12 @@ app.listen(port, () => {
 })
 
 
+
+
+
 // -----------routes-------------
 app.use('/api/user', userRoute)
-app.use('/api/customer', customerRoute);
+app.use('/api/customer',checkAuth, customerRoute);
 app.use('/api/history',checkAuth, historyRouter)
 
 

@@ -14,7 +14,6 @@ export const Customer = () => {
 	//=============== custom HOOKs ===================
 	const { id, customerDetails, handleInput, saveCustomer } = useCustomer();
 
-	console.log(customerDetails, "=====customerDetails");
 
 	return (
 		<Container>

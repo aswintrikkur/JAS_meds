@@ -107,6 +107,7 @@ const login = async (req, res, next) => {
         });
 
     } catch (error) {
+        
         next(error);
 
     }
@@ -125,8 +126,8 @@ const verifyToken = async (req, res, next) => {
         })
 
     } catch (error) {
-
-        next(error)
+        console.log(error);
+        // next(error)
     }
 
 }

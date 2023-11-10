@@ -12,11 +12,16 @@ const customerSchema = new mongoose.Schema(
         date: { type: String },
         doctorName: String,
         staffName: String,
-        medList: [{
-            medicineName: String,
-            quantity: Number,
-            dueDate: String
-        }]
+        medDetails: {
+            medList: [{
+                medicineName: String,
+                quantity: Number,
+                dueDate: String
+            }],
+            nrxDrugs: String,
+            img: Object,
+            comments: String
+        },
     }
 );
 const Customers = mongoose.model('Customers', customerSchema)

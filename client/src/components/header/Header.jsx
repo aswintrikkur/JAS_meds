@@ -8,25 +8,26 @@ import { useHandleUser } from "../../hooks/useHandleUser";
 export const Header = () => {
 	const navigate = useNavigate();
 	const { userLogOut } = useHandleUser();
+	const { user } = useContext(AuthContext);
 
 	return (
 		<div className="header-container">
 			<div className="row1">
 				<h1>JAS MEDS</h1>
-
-				<div className="profile">
-					{/* <img src="/icons/profile.svg" alt="" /> */}
-					<i
-						className="fa-solid fa-right-from-bracket fa-xl"
-						style={{ color: "#282424" }}
-						onClick={() => {
-							userLogOut();
-						}}
-					></i>
-				</div>
-
+				{user && (
+					<div className="logout">
+						{/* <img src="/icons/profile.svg" alt="" /> */}
+						<i
+							className="fa-solid fa-right-from-bracket fa-xl"
+							style={{ color: "#282424" }}
+							onClick={() => {
+								userLogOut();
+							}}
+						></i>
+					</div>
+				)}
 			</div>
-			<ul className="nav">
+			<ul className="nav" style={{ visibility: user ? "visible" : "hidden" }}>
 				<li
 					onClick={() => {
 						navigate("/");
