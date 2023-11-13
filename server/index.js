@@ -14,6 +14,8 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static('public'));
 
+//! delete customers list from users collections
+
 connectDB();         //create dataBase
 
 const port = process.env.PORT || 3000;

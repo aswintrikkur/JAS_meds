@@ -8,46 +8,60 @@ import { useInputHandleLocal } from "../../hooks/useInputHandle";
 import { useCustomer } from "../../hooks/useCustomer";
 
 export const AddMedicine = () => {
-	const [selectOption, setSelectOption] = useState({
-		name: "days",
-		value: "",
-	});
-
 	const [tempField, setTempField] = useState({
 		medicineName: "",
 		quantity: "",
-		[selectOption.name]: selectOption.value,
+		days: "",
 		dueDate: "",
+		// [selectOption.name]: selectOption.value,
 	});
 	const [medDueDate, setMedDueDate] = useState();
-
+	
 	const navigate = useNavigate();
 	const params = useParams();
-
-	// handling radio button
-	const handleSelect = (event) => {
-		if (event?.target.name == "select-option") {
-			// console.log("handle select value type", typeOf(event.target.value));
-			setSelectOption((prev) => ({
-				...prev,
-				name: event.target.value,
-			}));
-		}
-		findMedDueDate(); //! BUG: Due date not updating when radio button changes after filling the field.
-	};
 
 	//================= custome HOOKs ===========
 	const { customerDetails, addMedToList } = useCustomer(); //* important
 	const { handleChangeLocal } = useInputHandleLocal(); // Input handling for local state
 
 
+	// handling radio button
+	const handleSelect = (event) => {
+		const { value } = event.target;
+		if (value === "days") {
+			const { dailyConsumption, ...rest } = tempField;
+			setTempField({ ...rest,  days: "" });
+		} else if (value === "dailyConsumption") {
+			const { days, ...rest } = tempField;
+			setTempField({ ...rest,  dailyConsumption: "" });
+		}
+		setMedDueDate(false);
+	};
+
+	// handle dynamic input field
+	const hanldeInput = (event) => {
+		let prop = "days";
+
+		prop = tempField.days === undefined ? "dailyConsumption" : "days";
+
+		setTempField((prev) => ({
+			...prev,
+
+			[prop]: event.target.value,
+		}));
+	};
+
+
 	//! To find due date
 	const findMedDueDate = (event) => {
-		const { value, name } = event.target;
+		const { value } = event.target;
 		const currentDate = new Date(customerDetails.date || Date.now());
+		let selected;
+
+		selected = tempField.days === undefined ? "dailyConsumption" : "days";
 
 		// setTimeout(() => {
-		if (name == "days") {
+		if (selected == "days") {
 			currentDate.setDate(currentDate.getDate() + Number(value)); //* manipulating currentDate
 			// console.log(currentDate);
 			setTempField((prev) => ({
@@ -56,14 +70,15 @@ export const AddMedicine = () => {
 			}));
 			setMedDueDate(currentDate.toDateString());
 		}
-		if (name == "dailyConsumption") {
+		if (selected == "dailyConsumption") {
 			let days = parseInt(tempField.quantity) / parseInt(value);
 			currentDate.setDate(currentDate.getDate() + days);
-			console.log(currentDate);
+			// console.log(currentDate);
 			setMedDueDate(currentDate.toDateString());
 		}
 		// }, 1500);
 	};
+
 
 	return (
 		<Container>
@@ -114,20 +129,19 @@ export const AddMedicine = () => {
 							</div>
 						</div>
 						<Input
-							placeholder={selectOption.name}
+							placeholder={tempField.days === undefined ? "Daily Consumption" : "Days"}
 							type="number"
 							onChange={(event) => {
-								handleChangeLocal(event, setTempField);
+								hanldeInput(event);
 								findMedDueDate(event);
 							}}
 							onBlur={findMedDueDate}
-							// value={tempField[selectOption.name]}
-							name={selectOption.name}
+							value={tempField.days == undefined ? tempField.dailyConsumption : tempField.days}
+							// name={selectOption.name}
 						/>
 					</div>
 				</form>
-				{/* //TODO: use this btn for findMedDueDate() */}
-				{/* <button className="check-due">check</button>*/}
+
 				<p>
 					Medicine Due Date:<span>{medDueDate}</span>
 				</p>

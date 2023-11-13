@@ -113,6 +113,7 @@ export const History = () => {
 									<h4>Address</h4>
 									<h4>Doctor</h4>
 									<h4>Staff</h4>
+									<h4>Due Date</h4>
 								</div>
 								<div className="col2">
 									<h4>{individual?.customerId}</h4>
@@ -120,6 +121,7 @@ export const History = () => {
 									<h4>{individual?.address}</h4>
 									<h4>{individual?.doctorName}</h4>
 									<h4> {individual?.staffName}</h4>
+									<h4> {individual?.medDetails?.lastDue?.slice(0,10)}</h4>
 								</div>
 							</div>
 

@@ -20,7 +20,9 @@ const customerSchema = new mongoose.Schema(
             }],
             nrxDrugs: String,
             img: Object,
-            comments: String
+            comments: String,
+            lastDue: String
+
         },
     }
 );

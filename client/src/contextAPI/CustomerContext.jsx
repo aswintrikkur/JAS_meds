@@ -17,6 +17,7 @@ export const CustomerProvider = ({ children }) => {
 		staffName: "",
 		medDetails: {
 			medList: [],
+			lastDue:"",
 			nrxDrugs: '',
 			img: {},
 			comments: '',

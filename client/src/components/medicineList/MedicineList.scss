@@ -13,6 +13,13 @@
 	h3 {
 	}
 }
+.due-date{
+	text-align: end;
+	font-weight: 400;
+	span{
+		font-weight: 600;
+	}
+}
 .medicine-list-container {
 	// min-height: 300px;
 	// background-color: rgba(134, 52, 134, 0.267);

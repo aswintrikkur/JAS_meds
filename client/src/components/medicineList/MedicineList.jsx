@@ -4,6 +4,7 @@ import { BaseButton } from "../button/Button";
 import { CardContainer } from "../container/Container";
 import { useCustomer } from "../../hooks/useCustomer";
 import axios from "axios";
+import { useEffect } from "react";
 
 export const MedicineList = () => {
 	//================ local states ========================
@@ -16,14 +17,13 @@ export const MedicineList = () => {
 	const [toggle, setToggle] = useState(false);
 
 	//====================== Custom HOOKS ===========================
-	const { listOfMeds, customerDetails, setCustomerDetails, submitCustomer } = useCustomer();
+	const { listOfMeds, customerDetails, findFinalDue, setCustomerDetails, submitCustomer } = useCustomer();
 
 	//================== local functions =========================
 	//* toggle NRX drugs drop-down field
 	const toggleDropDown = (event) => {
 		setToggle((prev) => !prev);
 	};
-
 	const handleNrxDrugs = (event) => {
 		const { value } = event.target;
 		setCustomerDetails((prev) => {
@@ -31,21 +31,17 @@ export const MedicineList = () => {
 			newData.medDetails.nrxDrugs = value;
 			return newData;
 		});
-		// setCustomerDetails(prev=>({
-		// 	...prev,
-		// 	[medDetails.nrxDrugs]: customerDetails.medDetails.nrxDrugs.push(value)
-		// }))
 	};
 
 	// handle comments
-	const handleComments=(event)=>{
-		const {value}= event.target;
-		setCustomerDetails(prev=>{
-			const newData ={...prev};
-			newData.medDetails.comments=value; 
-			return newData
-		})
-	}
+	const handleComments = (event) => {
+		const { value } = event.target;
+		setCustomerDetails((prev) => {
+			const newData = { ...prev };
+			newData.medDetails.comments = value;
+			return newData;
+		});
+	};
 
 	// Choose/Select image
 	const handleChooseFile = (event) => {
@@ -58,22 +54,21 @@ export const MedicineList = () => {
 			name: data.name,
 			preview: URL.createObjectURL(data),
 		}));
+		setCloudinary('');
 	};
 
 	//================= upload to cloudinay =====================
 	const uploadFile = async () => {
 		console.log("button clicked");
 		try {
-
 			const cloud_name = import.meta.env.VITE_CLOUD_NAME;
 			const preset_key = import.meta.env.VITE_PRESET_KEY;
-
 
 			const formData = new FormData();
 			formData.append("file", file.img);
 			formData.append("upload_preset", preset_key);
 
-			const cloudinaryRes = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`,formData);
+			const cloudinaryRes = await axios.post(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, formData);
 
 			setCloudinary(cloudinaryRes.data.secure_url);
 			const imgUrl = cloudinaryRes.data.secure_url;
@@ -90,11 +85,21 @@ export const MedicineList = () => {
 		}
 	};
 
+	useEffect(() => {
+		findFinalDue();
+	}, []);
+
 	return (
 		<CardContainer>
 			<div className="title">
 				<h3>List of Medicines</h3>
 			</div>
+
+			{customerDetails.medDetails.medList?.length !== 0 && (
+				<h5 className="due-date">
+					Due Date <br /> <span>{customerDetails?.medDetails?.lastDue?.toDateString()}</span>
+				</h5>
+			)}
 
 			{listOfMeds[0]?.medicineName && (
 				<div style={{ position: "relative" }}>
@@ -130,8 +135,8 @@ export const MedicineList = () => {
 								</select>
 							)}
 						</div>
-						
-						<input type="text" placeholder="Add comments" className="comments"  onChange={handleComments}/>
+
+						<input type="text" placeholder="Add comments" className="comments" onChange={handleComments} />
 
 						{/* //* FILE UPLOAD  */}
 						<div className="file-upload">
@@ -142,11 +147,13 @@ export const MedicineList = () => {
 								</label>
 								<p>{file.name}</p>
 							</div>
-							{cloudinary&& <img src={cloudinary} alt="cloudinary" />}
-							{/* <img src={file.preview} alt="preview" /> */}
-							<button className="prescription-upload" onClick={uploadFile}>
-								upload
-							</button>
+							{cloudinary ? (
+								<img src={cloudinary} alt="cloudinary" />
+							) : (
+								<button className="prescription-upload" onClick={uploadFile}>
+									upload
+								</button>
+							)}
 						</div>
 					</div>
 					<div className="submit-btn">

@@ -54,10 +54,31 @@ export const useCustomer = () => {
 		});
 	};
 
-	//====== submit =========
+	//======== find last DueDate =========
+	const findFinalDue = () => {
+		var result=0;
+		
+		setCustomerDetails((prev) => {
+			const updated = { ...prev };
+
+			updated?.medDetails?.medList?.map((data) => {
+				const date = data?.dueDate?.getTime();
+				if (date > result) {
+					result = date;
+				}
+			});
+
+			// console.log("result inside ====", new Date());
+			updated.medDetails.lastDue = new Date(result);
+			return updated;
+		});
+		// setCustomerDetails((prev) => ({ ...prev, [customerDetails.medDetails.finalDue]: result }));
+	};
+
+	//====== Final Submit =========
 	const submitCustomer = async () => {
 		try {
-			console.log(customerDetails.medDetails	,"=======medDetails");
+			console.log(customerDetails.medDetails, "=======medDetails");
 			const response = await axios(`${API}/api/customer/details/${id}`, {
 				method: "PUT",
 				headers: {
@@ -65,7 +86,7 @@ export const useCustomer = () => {
 					// "Content-Type": "multipart/form-data",  //form sending File
 					Authorization: localStorage.getItem("token"),
 				},
-				data: customerDetails.medDetails //unwanted properties also passing
+				data: customerDetails.medDetails, //unwanted properties also passing
 			});
 
 			toast.success("Data submitted");
@@ -82,5 +103,15 @@ export const useCustomer = () => {
 		}
 	};
 
-	return { id, customerDetails, setCustomerDetails, listOfMeds, handleInput, saveCustomer, addMedToList, submitCustomer };
+	return {
+		id,
+		customerDetails,
+		setCustomerDetails,
+		listOfMeds,
+		handleInput,
+		saveCustomer,
+		addMedToList,
+		findFinalDue,
+		submitCustomer,
+	};
 };
