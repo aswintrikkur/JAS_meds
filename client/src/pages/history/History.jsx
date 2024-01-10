@@ -4,13 +4,9 @@ import "./History.scss";
 import axios from "axios";
 import { API } from "../../api";
 
-export const History = () => {
-	const [data, setData] = useState();
-	const [individual, setIndividual] = useState();
-	const [show, setShow] = useState(false);
-
 	//====== fetch Data ========
 	const fetchHistory = async () => {
+		// console.log('data fetching------------');
 		try {
 			const response = await axios(`${API}/api/history`, {
 				method: "GET",
@@ -18,12 +14,22 @@ export const History = () => {
 					Authorization: localStorage.getItem("token"), //todo: implement interceptors for sending token
 				},
 			});
-			setData(response.data.customers);
+			// setData(response.data.customers);
+			// console.log('response=========',response?.data?.customers);
+			return response.data.customers;
 			// console.log(response);
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
+export const History = () => {
+	// const [data, setData] = useState(()=>fetchHistory());
+	const [data, setData] = useState([]);
+	const [individual, setIndividual] = useState();
+	const [show, setShow] = useState(false);
+
+
 
 	// ===== onclick of individual item =========
 	const showDetails = async (event, key) => {

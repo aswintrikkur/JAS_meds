@@ -31,7 +31,7 @@ export const LoginForm = ({ handleExistingUser }) => {
 	const [temp, setTemp] = useState({ email: "", password: "" });
 
 	const { handleChangeLocal } = useInputHandleLocal();
-	const {fetchData}= useContext(AuthContext);
+	const { fetchData } = useContext(AuthContext);
 
 	const userLogin = async () => {
 		try {
@@ -39,18 +39,17 @@ export const LoginForm = ({ handleExistingUser }) => {
 				method: "POST",
 				data: temp,
 			});
-			toast.success('success')
+			toast.success("success");
 			fetchData(response.data);
-
 		} catch (error) {
-			toast.error(error.response.data.message || 'something went wrong')
+			toast.error(error.response.data.message || "something went wrong");
 		}
 	};
 
 	return (
 		<div className="form-container">
 			<div className="form">
-			<Toaster     />
+				<Toaster />
 
 				<h4>LOG IN</h4>
 
@@ -86,17 +85,16 @@ export const LoginForm = ({ handleExistingUser }) => {
 					SUBMIT
 				</button>
 			</div>
+			<div className="sample-credentials">
+				<h5>Email: <span>test</span></h5>
+				<h5>Password: <span>test</span></h5>
+			</div>
 		</div>
 	);
 };
 
 //========= Signup Form ==========
 export const SignupForm = ({ handleExistingUser }) => {
-
-
-
-
-
 	return (
 		<div className="form-container">
 			<div className="form">

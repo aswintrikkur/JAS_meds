@@ -1,13 +1,14 @@
 @import "../../index.scss";
 
-.form-container{
+.form-container {
+	width: 100%;
 
-    width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 
-    display: flex;
-    justify-content: center;
-
-    .form {
+	.form {
 		width: 65%;
 		padding: 10px;
 		border-radius: 30px;
@@ -22,11 +23,11 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		
+
 		h4 {
-		font-family:  Arial, sans-serif;
+			font-family: Arial, sans-serif;
 			padding: 20px 0;
-			font-family:  Serif;
+			font-family: Serif;
 			font-size: 26px;
 			margin-bottom: 15px;
 		}
@@ -70,6 +71,21 @@
 
 			&:hover {
 				filter: contrast(110%);
+			}
+		}
+	}
+	.sample-credentials {
+		background-color: rgba(63, 63, 63, 0.37);
+		width: 40%;
+		text-align: center;
+		line-height: 2px;
+		border-radius: 40px;
+		margin-top: 10px;
+
+		h5{
+			font-weight: 400;
+			span{
+				font-weight: 600;
 			}
 		}
 	}
